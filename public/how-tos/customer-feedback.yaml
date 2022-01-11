@@ -1,6 +1,6 @@
 title: Customer feedback
 q1:
-    question: Do you want to report this internallly with us, the Better Business Bureau, or Santa Claus?
+    question: Do you want to report this us (internally), the Better Business Bureau, or Santa Claus?
     choices:
         - Us: q2
         - BBB: bbbDetails
