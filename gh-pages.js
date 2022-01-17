@@ -1,3 +1,4 @@
+//FROM: https://www.devsamples.com/javascript/svelte/deploy-svelte-app-gh-pages
 import ghpages from 'gh-pages';
 
 ghpages.publish(
