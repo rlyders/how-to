@@ -2,22 +2,22 @@ title: Turn on lights
 q1:
     question: Which lights do you want to turn on?
     choices:
-        - kitchen: q2
-        - pantry: pantryLights
-        - backyard: backyardLights
+        kitchen: q2
+        pantry: pantryLights
+        backyard: backyardLights
 q2:
     question: Are you inside or outside of the room?
     choices:
-        - inside: flickSwitch
-        - outside: q3
-        - too dark to be sure: http://wiki.abco.com/too-dark-guide
+        inside: flickSwitch
+        outside: q3
+        too dark to be sure: http://wiki.abco.com/too-dark-guide
     learnMore: http://wiki.abco.com/too-dark-tips
 q3: 
     question: Is the door to the room open or closed?
     choices:
-        - open: enterDoor
-        - closed: openDoor
-        - I can't see: cantSee
+        open: enterDoor
+        closed: openDoor
+        I can't see: cantSee
 webBrowserHowTo: cmsKey://WebBrowserHowToCmsKey
 backyardLights: http://wiki.abco.com/backyard-lights
 pantryLights: http://wiki.abco.com/pantry-lights
