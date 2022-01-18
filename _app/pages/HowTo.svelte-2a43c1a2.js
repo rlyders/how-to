@@ -77,7 +77,7 @@ function create_if_block_4(ctx) {
       add_render_callback(() => {
         if (li_outro)
           li_outro.end(1);
-        li_intro = create_in_transition(li, fly, { y: 200, duration: 1e3 });
+        li_intro = create_in_transition(li, fly, { y: 200, duration: 750 });
         li_intro.start();
       });
       current = true;
@@ -101,7 +101,7 @@ function create_if_block_4(ctx) {
 }
 function create_if_block_6(ctx) {
   let span;
-  let t_value = ctx[20].stepKey + "";
+  let t_value = (ctx[20].selectedChoiceKey ? ctx[20].selectedChoiceKey : ctx[20].stepKey) + "";
   let t;
   return {
     c() {
@@ -119,7 +119,7 @@ function create_if_block_6(ctx) {
       append_hydration(span, t);
     },
     p(ctx2, dirty) {
-      if (dirty & 1 && t_value !== (t_value = ctx2[20].stepKey + ""))
+      if (dirty & 1 && t_value !== (t_value = (ctx2[20].selectedChoiceKey ? ctx2[20].selectedChoiceKey : ctx2[20].stepKey) + ""))
         set_data(t, t_value);
     },
     d(detaching) {
@@ -130,7 +130,7 @@ function create_if_block_6(ctx) {
 }
 function create_if_block_5(ctx) {
   let a;
-  let t_value = ctx[20].stepKey + "";
+  let t_value = ctx[20].selectedChoiceKey + "";
   let t;
   let a_href_value;
   let mounted;
@@ -165,7 +165,7 @@ function create_if_block_5(ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & 1 && t_value !== (t_value = ctx[20].stepKey + ""))
+      if (dirty & 1 && t_value !== (t_value = ctx[20].selectedChoiceKey + ""))
         set_data(t, t_value);
       if (dirty & 1 && a_href_value !== (a_href_value = ctx[20].path)) {
         attr(a, "href", a_href_value);
@@ -289,8 +289,8 @@ function create_if_block(ctx) {
         if (div_outro)
           div_outro.end(1);
         div_intro = create_in_transition(div, fly, {
-          x: 100 * ctx[4],
-          duration: 500
+          x: 200 * ctx[4],
+          duration: 750
         });
         div_intro.start();
       });
