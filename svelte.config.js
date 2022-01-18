@@ -21,8 +21,8 @@ const config = {
 		// adapter: adapter(),
 		adapter: adapter({
 			// default options are shown
-			pages: 'build',
-			assets: 'build',
+			pages: 'docs',
+			assets: 'docs',
 			fallback: null,
 			precompress: false
 		}),
@@ -48,7 +48,7 @@ const config = {
 		},
 		// If you are not using a .nojekyll file, change your appDir to something not starting with an underscore.
 		// For example, instead of '_app', use 'app_', 'internal', etc.
-		appDir: 'internal',
+		appDir: '_app',
 	}
 };
 

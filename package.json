@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "rm -rf build && svelte-kit build",
+		"build": "rm -rf docs && svelte-kit build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
@@ -13,7 +13,7 @@
 		"prepare": "npm run smui-theme",
 		"smui-theme": "smui-theme compile static/smui.css -i src/theme",
 		"start": "sirv public --no-clear",
-		"deploy": "npm run build && npx gh-pages -d build"
+		"deploy": "npm run build && npx gh-pages -d docs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
