@@ -97,11 +97,11 @@
 <ul class="breadcrumb">
     {#each userChoices as userChoice,userChoiceIdx}
         {#if userChoiceIdx <= currentUserChoiceIdx}
-            <li in:fly="{{ y: 200, duration: 1000 }}" out:fade>
+            <li in:fly="{{ y: 200, duration: 750 }}" out:fade>
                 {#if userChoiceIdx < currentUserChoiceIdx}
-                    <a href={userChoice.path} on:click|preventDefault={() => handleClickBreadcrumb(userChoiceIdx)}>{userChoice.stepKey}</a>
+                    <a href={userChoice.path} on:click|preventDefault={() => handleClickBreadcrumb(userChoiceIdx)}>{userChoice.selectedChoiceKey}</a>
                 {:else if userChoiceIdx == currentUserChoiceIdx}
-                    <span>{userChoice.stepKey}</span>
+                    <span>{userChoice.selectedChoiceKey ? userChoice.selectedChoiceKey : userChoice.stepKey}</span>
                 {/if}
             </li>
         {/if}
@@ -109,7 +109,7 @@
 </ul> 
 
 {#if visibleCard }
-    <div in:fly="{{ x: 100*transitionMultiplier, duration: 500 }}" out:fade class="card-container">
+    <div in:fly="{{ x: 200*transitionMultiplier, duration: 750 }}" out:fade class="card-container">
         <Card padded>
             <CardText>
                 <div class="container" style="display: flex;">
