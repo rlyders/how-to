@@ -11,8 +11,8 @@
     let userChoices: UserChoice[] = [startingUserChoice];
     let currentUserChoiceIdx = 0;
     let currentUserChoice: UserChoice;
-    $:currentUserChoice = userChoices[currentUserChoiceIdx];
-    $:currentHowToStep = howToData[currentUserChoice.stepKey];
+    $:currentUserChoice = currentUserChoiceIdx ? userChoices[currentUserChoiceIdx] : undefined;
+    $:currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined;
 
     let htmlContent = '';
     let visibleCard = true;
