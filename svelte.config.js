@@ -18,8 +18,7 @@ const config = {
 
 	kit: {
 		paths: {
-			base: '/how-to',
-			assets: '/how-to'
+			base: process.env.NODE_ENV === 'development' ? undefined : '/how-to'
 		  },
 		// adapter: vercel(),
 		adapter: adapter({
