@@ -17,7 +17,10 @@ const config = {
 	],
 
 	kit: {
-		paths: { base: '/how-to'},
+		paths: {
+			base: '/how-to',
+			assets: '/how-to'
+		  },
 		// adapter: vercel(),
 		adapter: adapter({
 			pages: 'build',
