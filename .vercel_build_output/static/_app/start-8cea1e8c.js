@@ -766,8 +766,8 @@ const __vitePreload = function preload(baseModule, deps) {
 const c = [
   () => __vitePreload(() => import("./pages/__layout.svelte-548b8a82.js"), true ? ["pages/__layout.svelte-548b8a82.js","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css"] : void 0),
   () => __vitePreload(() => import("./error.svelte-3b2b9a98.js"), true ? ["error.svelte-3b2b9a98.js","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css"] : void 0),
-  () => __vitePreload(() => import("./pages/index.svelte-94acb35c.js"), true ? ["pages/index.svelte-94acb35c.js","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css","pages/HowTo.svelte-95d0954e.js","assets/pages/HowTo.svelte-37c3566c.css"] : void 0),
-  () => __vitePreload(() => import("./pages/HowTo.svelte-95d0954e.js"), true ? ["pages/HowTo.svelte-95d0954e.js","assets/pages/HowTo.svelte-37c3566c.css","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css"] : void 0)
+  () => __vitePreload(() => import("./pages/index.svelte-409750af.js"), true ? ["pages/index.svelte-409750af.js","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css","pages/HowTo.svelte-dc191d1a.js","assets/pages/HowTo.svelte-37c3566c.css"] : void 0),
+  () => __vitePreload(() => import("./pages/HowTo.svelte-dc191d1a.js"), true ? ["pages/HowTo.svelte-dc191d1a.js","assets/pages/HowTo.svelte-37c3566c.css","chunks/vendor-968b8cf9.js","assets/vendor-93930054.css"] : void 0)
 ];
 const routes = [
   [/^\/$/, [c[0], c[2]], [c[1]]],

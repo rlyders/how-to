@@ -1,5 +1,5 @@
 import { S as SvelteComponent, i as init, s as safe_not_equal, M as MaterialApp, w as create_component, x as claim_component, y as mount_component, q as transition_in, o as transition_out, B as destroy_component, L as AppBar, O as Overlay, e as element, k as space, c as claim_element, a as children, m as claim_space, d as detach, f as set_style, g as insert_hydration, J as append_hydration, N as Button, P as Menu, b as attr, t as text, h as claim_text, K as noop, Q as Icon, R as mdiMagnify, l as empty, n as group_outros, p as check_outros, T as destroy_each, U as mdiMenu, V as ListItem, W as mdiDotsVertical } from "../chunks/vendor-968b8cf9.js";
-import HowTo from "./HowTo.svelte-95d0954e.js";
+import HowTo from "./HowTo.svelte-dc191d1a.js";
 var data$1 = {
   title: "Customer feedback",
   who: {
@@ -23,14 +23,15 @@ var data$1 = {
     choices: {
       "Mobile App": "mobile-app-how-to",
       "Mobile Web Browser": "browser-how-to",
-      Other: "https://www.google.com/search?q=other+info"
+      Other: "other-info"
     },
     learnMore: "https://www.google.com/search?q=app+learn+more"
   },
   "mobile-app-how-to": "### Heading\n* Bullets\n* Points\n",
   "bbb-info": "https://www.bbb.org/file-a-complaint",
   "santa-info": "https://www.google.com/search?q=santa+info",
-  "browser-how-to": "https://www.google.com/search?q=browser+how+to"
+  "browser-how-to": "https://www.google.com/search?q=browser+how+to",
+  "other-info": "https://www.google.com/search?q=other+info"
 };
 data$1.title;
 data$1.who;
