@@ -1,5 +1,5 @@
-import { S as SvelteComponent, i as init, s as safe_not_equal, M as MaterialApp, w as create_component, x as claim_component, y as mount_component, q as transition_in, o as transition_out, B as destroy_component, L as AppBar, O as Overlay, e as element, k as space, c as claim_element, a as children, m as claim_space, d as detach, f as set_style, g as insert_hydration, J as append_hydration, N as Button, P as Menu, b as attr, t as text, h as claim_text, K as noop, Q as Icon, R as mdiMagnify, l as empty, n as group_outros, p as check_outros, T as destroy_each, U as mdiMenu, V as ListItem, W as mdiDotsVertical } from "../chunks/vendor-f5cbf4b0.js";
-import HowTo from "./HowTo.svelte-2a43c1a2.js";
+import { S as SvelteComponent, i as init, s as safe_not_equal, M as MaterialApp, w as create_component, x as claim_component, y as mount_component, q as transition_in, o as transition_out, B as destroy_component, L as AppBar, O as Overlay, e as element, k as space, c as claim_element, a as children, m as claim_space, d as detach, f as set_style, g as insert_hydration, J as append_hydration, n as group_outros, p as check_outros, N as Button, P as Menu, b as attr, t as text, h as claim_text, j as set_data, Q as Icon, R as mdiMagnify, K as noop, l as empty, T as destroy_each, U as mdiMenu, V as add_render_callback, W as create_in_transition, X as fly, Y as create_out_transition, Z as fade, _ as ListItem, $ as mdiDotsVertical } from "../chunks/vendor-4da3dbd9.js";
+import HowTo from "./HowTo.svelte-041df008.js";
 var data$1 = {
   title: "Customer feedback",
   who: {
@@ -38,24 +38,24 @@ data$1.who;
 data$1.how;
 var data = {
   title: "Turn on lights",
-  q1: {
+  which: {
     question: "Which lights do you want to turn on?",
     choices: {
-      kitchen: "q2",
+      kitchen: "inOut",
       pantry: "pantryLights",
       backyard: "backyardLights"
     }
   },
-  q2: {
+  inOut: {
     question: "Are you inside or outside of the room?",
     choices: {
       inside: "flickSwitch",
-      outside: "q3",
-      "too dark to be sure": "http://wiki.abco.com/too-dark-guide"
+      outside: "openClosed",
+      "too dark to be sure": "tooDark"
     },
     learnMore: "http://wiki.abco.com/too-dark-tips"
   },
-  q3: {
+  openClosed: {
     question: "Is the door to the room open or closed?",
     choices: {
       open: "enterDoor",
@@ -69,12 +69,13 @@ var data = {
   flickSwitch: "http://wiki.abco.com/flick-switch",
   enterDoor: "http://wiki.abco.com/enter-door",
   openDoor: "http://wiki.abco.com/open-door",
-  cantSee: "http://wiki.abco.com/cant-see"
+  cantSee: "http://wiki.abco.com/cant-see",
+  tooDark: "http://wiki.abco.com/too-dark"
 };
 data.title;
-data.q1;
-data.q2;
-data.q3;
+data.which;
+data.inOut;
+data.openClosed;
 data.webBrowserHowTo;
 data.backyardLights;
 data.pantryLights;
@@ -82,10 +83,11 @@ data.flickSwitch;
 data.enterDoor;
 data.openDoor;
 data.cantSee;
+data.tooDark;
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[3] = list[i];
-  child_ctx[5] = i;
+  child_ctx[9] = list[i];
+  child_ctx[11] = i;
   return child_ctx;
 }
 function create_default_slot_7(ctx) {
@@ -138,7 +140,7 @@ function create_default_slot_6(ctx) {
   };
 }
 function create_default_slot_5(ctx) {
-  let t_value = ctx[3].title + "";
+  let t_value = ctx[9].title + "";
   let t;
   return {
     c() {
@@ -160,12 +162,16 @@ function create_default_slot_5(ctx) {
 function create_each_block(ctx) {
   let listitem;
   let current;
+  function click_handler(...args) {
+    return ctx[7](ctx[9], ...args);
+  }
   listitem = new ListItem({
     props: {
       $$slots: { default: [create_default_slot_5] },
       $$scope: { ctx }
     }
   });
+  listitem.$on("click", click_handler);
   return {
     c() {
       create_component(listitem.$$.fragment);
@@ -177,10 +183,11 @@ function create_each_block(ctx) {
       mount_component(listitem, target, anchor);
       current = true;
     },
-    p(ctx2, dirty) {
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
       const listitem_changes = {};
-      if (dirty & 64) {
-        listitem_changes.$$scope = { dirty, ctx: ctx2 };
+      if (dirty & 4096) {
+        listitem_changes.$$scope = { dirty, ctx };
       }
       listitem.$set(listitem_changes);
     },
@@ -202,7 +209,7 @@ function create_each_block(ctx) {
 function create_default_slot_4(ctx) {
   let each_1_anchor;
   let current;
-  let each_value = ctx[1];
+  let each_value = ctx[4];
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -231,8 +238,8 @@ function create_default_slot_4(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (dirty & 2) {
-        each_value = ctx2[1];
+      if (dirty & 80) {
+        each_value = ctx2[4];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx2, each_value, i);
@@ -341,7 +348,7 @@ function create_activator_slot(ctx) {
     },
     p(ctx2, dirty) {
       const button_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4096) {
         button_changes.$$scope = { dirty, ctx: ctx2 };
       }
       button.$set(button_changes);
@@ -439,17 +446,17 @@ function create_default_slot_2(ctx) {
     },
     p(ctx2, dirty) {
       const button0_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4096) {
         button0_changes.$$scope = { dirty, ctx: ctx2 };
       }
       button0.$set(button0_changes);
       const button1_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4096) {
         button1_changes.$$scope = { dirty, ctx: ctx2 };
       }
       button1.$set(button1_changes);
       const menu_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4096) {
         menu_changes.$$scope = { dirty, ctx: ctx2 };
       }
       menu.$set(menu_changes);
@@ -524,7 +531,7 @@ function create_icon_slot(ctx) {
       $$scope: { ctx }
     }
   });
-  button.$on("click", ctx[2]);
+  button.$on("click", ctx[5]);
   return {
     c() {
       div = element("div");
@@ -548,7 +555,7 @@ function create_icon_slot(ctx) {
     },
     p(ctx2, dirty) {
       const button_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4096) {
         button_changes.$$scope = { dirty, ctx: ctx2 };
       }
       button.$set(button_changes);
@@ -574,7 +581,7 @@ function create_title_slot(ctx) {
   let span;
   let t0;
   let t1;
-  let t2_value = ctx[1][0].title + "";
+  let t2_value = ctx[4][ctx[1]].title + "";
   let t2;
   return {
     c() {
@@ -602,10 +609,104 @@ function create_title_slot(ctx) {
       append_hydration(span, t1);
       append_hydration(span, t2);
     },
-    p: noop,
+    p(ctx2, dirty) {
+      if (dirty & 2 && t2_value !== (t2_value = ctx2[4][ctx2[1]].title + ""))
+        set_data(t2, t2_value);
+    },
     d(detaching) {
       if (detaching)
         detach(span);
+    }
+  };
+}
+function create_else_block(ctx) {
+  let div;
+  let t;
+  return {
+    c() {
+      div = element("div");
+      t = text("Loading...");
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", {});
+      var div_nodes = children(div);
+      t = claim_text(div_nodes, "Loading...");
+      div_nodes.forEach(detach);
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, t);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(div);
+    }
+  };
+}
+function create_if_block(ctx) {
+  let div;
+  let howto;
+  let div_intro;
+  let div_outro;
+  let current;
+  howto = new HowTo({
+    props: {
+      howToData: ctx[4][ctx[1]],
+      startingStepKey: ctx[2]
+    }
+  });
+  return {
+    c() {
+      div = element("div");
+      create_component(howto.$$.fragment);
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", {});
+      var div_nodes = children(div);
+      claim_component(howto.$$.fragment, div_nodes);
+      div_nodes.forEach(detach);
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      mount_component(howto, div, null);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const howto_changes = {};
+      if (dirty & 2)
+        howto_changes.howToData = ctx2[4][ctx2[1]];
+      if (dirty & 4)
+        howto_changes.startingStepKey = ctx2[2];
+      howto.$set(howto_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(howto.$$.fragment, local);
+      add_render_callback(() => {
+        if (div_outro)
+          div_outro.end(1);
+        div_intro = create_in_transition(div, fly, { y: 200, duration: 750 });
+        div_intro.start();
+      });
+      current = true;
+    },
+    o(local) {
+      transition_out(howto.$$.fragment, local);
+      if (div_intro)
+        div_intro.invalidate();
+      div_outro = create_out_transition(div, fade, {});
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+      destroy_component(howto);
+      if (detaching && div_outro)
+        div_outro.end();
     }
   };
 }
@@ -613,7 +714,8 @@ function create_default_slot(ctx) {
   let div;
   let appbar;
   let t0;
-  let howto;
+  let current_block_type_index;
+  let if_block;
   let t1;
   let overlay;
   let current;
@@ -628,12 +730,15 @@ function create_default_slot(ctx) {
       $$scope: { ctx }
     }
   });
-  howto = new HowTo({
-    props: {
-      howToData: ctx[1][0],
-      startingStepKey
-    }
-  });
+  const if_block_creators = [create_if_block, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (ctx2[3])
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
   overlay = new Overlay({
     props: {
       active: ctx[0],
@@ -641,13 +746,13 @@ function create_default_slot(ctx) {
       index: 1
     }
   });
-  overlay.$on("click", ctx[2]);
+  overlay.$on("click", ctx[5]);
   return {
     c() {
       div = element("div");
       create_component(appbar.$$.fragment);
       t0 = space();
-      create_component(howto.$$.fragment);
+      if_block.c();
       t1 = space();
       create_component(overlay.$$.fragment);
       this.h();
@@ -657,7 +762,7 @@ function create_default_slot(ctx) {
       var div_nodes = children(div);
       claim_component(appbar.$$.fragment, div_nodes);
       t0 = claim_space(div_nodes);
-      claim_component(howto.$$.fragment, div_nodes);
+      if_block.l(div_nodes);
       t1 = claim_space(div_nodes);
       claim_component(overlay.$$.fragment, div_nodes);
       div_nodes.forEach(detach);
@@ -671,17 +776,37 @@ function create_default_slot(ctx) {
       insert_hydration(target, div, anchor);
       mount_component(appbar, div, null);
       append_hydration(div, t0);
-      mount_component(howto, div, null);
+      if_blocks[current_block_type_index].m(div, null);
       append_hydration(div, t1);
       mount_component(overlay, div, null);
       current = true;
     },
     p(ctx2, dirty) {
       const appbar_changes = {};
-      if (dirty & 64) {
+      if (dirty & 4098) {
         appbar_changes.$$scope = { dirty, ctx: ctx2 };
       }
       appbar.$set(appbar_changes);
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(div, t1);
+      }
       const overlay_changes = {};
       if (dirty & 1)
         overlay_changes.active = ctx2[0];
@@ -691,13 +816,13 @@ function create_default_slot(ctx) {
       if (current)
         return;
       transition_in(appbar.$$.fragment, local);
-      transition_in(howto.$$.fragment, local);
+      transition_in(if_block);
       transition_in(overlay.$$.fragment, local);
       current = true;
     },
     o(local) {
       transition_out(appbar.$$.fragment, local);
-      transition_out(howto.$$.fragment, local);
+      transition_out(if_block);
       transition_out(overlay.$$.fragment, local);
       current = false;
     },
@@ -705,7 +830,7 @@ function create_default_slot(ctx) {
       if (detaching)
         detach(div);
       destroy_component(appbar);
-      destroy_component(howto);
+      if_blocks[current_block_type_index].d();
       destroy_component(overlay);
     }
   };
@@ -732,7 +857,7 @@ function create_fragment(ctx) {
     },
     p(ctx2, [dirty]) {
       const materialapp_changes = {};
-      if (dirty & 65) {
+      if (dirty & 4111) {
         materialapp_changes.$$scope = { dirty, ctx: ctx2 };
       }
       materialapp.$set(materialapp_changes);
@@ -753,14 +878,40 @@ function create_fragment(ctx) {
   };
 }
 let title = "How-To";
-let startingStepKey = "who";
 function instance($$self, $$props, $$invalidate) {
   let howTos = [data$1, data];
   let active = false;
   function toggleNavigation() {
     $$invalidate(0, active = !active);
   }
-  return [active, howTos, toggleNavigation];
+  let currentHowToIdx = 0;
+  let startingStepKey = "which";
+  let howToVisible = true;
+  function init2(howToTitle) {
+    $$invalidate(1, currentHowToIdx = howTos.findIndex((h) => h.title === howToTitle));
+    $$invalidate(2, startingStepKey = Object.keys(howTos[currentHowToIdx]).find((k) => k !== "title"));
+  }
+  const useHowTo = (howToTitle) => {
+    $$invalidate(3, howToVisible = false);
+    setTimeout(() => {
+      init2(howToTitle);
+      $$invalidate(3, howToVisible = true);
+    }, 1e3);
+  };
+  init2(howTos[currentHowToIdx].title);
+  const click_handler = (howToInList, e) => {
+    useHowTo(howToInList.title);
+  };
+  return [
+    active,
+    currentHowToIdx,
+    startingStepKey,
+    howToVisible,
+    howTos,
+    toggleNavigation,
+    useHowTo,
+    click_handler
+  ];
 }
 class Routes extends SvelteComponent {
   constructor(options) {

@@ -1,10 +1,10 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-749e2121.js",
+    "file": "start-877dfe1f.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_vendor-f5cbf4b0.js"
+      "_vendor-4da3dbd9.js"
     ],
     "dynamicImports": [
       "src/routes/__layout.svelte",
@@ -14,47 +14,47 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-107fab91.js",
+    "file": "pages/__layout.svelte-c828229a.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f5cbf4b0.js"
+      "_vendor-4da3dbd9.js"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-006b688b.js",
+    "file": "error.svelte-ba568a40.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f5cbf4b0.js"
+      "_vendor-4da3dbd9.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-583aa0b8.js",
+    "file": "pages/index.svelte-0cde7394.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f5cbf4b0.js",
+      "_vendor-4da3dbd9.js",
       "src/routes/HowTo.svelte"
     ]
   },
   "src/routes/HowTo.svelte": {
-    "file": "pages/HowTo.svelte-2a43c1a2.js",
+    "file": "pages/HowTo.svelte-041df008.js",
     "src": "src/routes/HowTo.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f5cbf4b0.js"
+      "_vendor-4da3dbd9.js"
     ],
     "css": [
       "assets/pages/HowTo.svelte-37c3566c.css"
     ]
   },
-  "_vendor-f5cbf4b0.js": {
-    "file": "chunks/vendor-f5cbf4b0.js",
+  "_vendor-4da3dbd9.js": {
+    "file": "chunks/vendor-4da3dbd9.js",
     "css": [
       "assets/vendor-93930054.css"
     ]

@@ -29,7 +29,7 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { S as SvelteComponent, i as init, s as safe_not_equal, e as element, c as claim_element, a as children, d as detach, b as attr, f as set_style, g as insert_hydration, t as text, h as claim_text, j as set_data, k as space, l as empty, m as claim_space, n as group_outros, o as transition_out, p as check_outros, q as transition_in, r as setContext, u as afterUpdate, v as onMount, w as create_component, x as claim_component, y as mount_component, z as get_spread_update, A as get_spread_object, B as destroy_component, C as assign, D as writable, E as tick } from "./chunks/vendor-f5cbf4b0.js";
+import { S as SvelteComponent, i as init, s as safe_not_equal, e as element, c as claim_element, a as children, d as detach, b as attr, f as set_style, g as insert_hydration, t as text, h as claim_text, j as set_data, k as space, l as empty, m as claim_space, n as group_outros, o as transition_out, p as check_outros, q as transition_in, r as setContext, u as afterUpdate, v as onMount, w as create_component, x as claim_component, y as mount_component, z as get_spread_update, A as get_spread_object, B as destroy_component, C as assign, D as writable, E as tick } from "./chunks/vendor-4da3dbd9.js";
 function create_else_block_1(ctx) {
   let switch_instance;
   let switch_instance_anchor;
@@ -732,7 +732,7 @@ class Root extends SvelteComponent {
 }
 const scriptRel = "modulepreload";
 const seen = {};
-const base$1 = "/how-to/_app/";
+const base$1 = "/_app/";
 const __vitePreload = function preload(baseModule, deps) {
   if (!deps || deps.length === 0) {
     return baseModule();
@@ -764,10 +764,10 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const c = [
-  () => __vitePreload(() => import("./pages/__layout.svelte-107fab91.js"), true ? ["pages/__layout.svelte-107fab91.js","chunks/vendor-f5cbf4b0.js","assets/vendor-93930054.css"] : void 0),
-  () => __vitePreload(() => import("./error.svelte-006b688b.js"), true ? ["error.svelte-006b688b.js","chunks/vendor-f5cbf4b0.js","assets/vendor-93930054.css"] : void 0),
-  () => __vitePreload(() => import("./pages/index.svelte-583aa0b8.js"), true ? ["pages/index.svelte-583aa0b8.js","chunks/vendor-f5cbf4b0.js","assets/vendor-93930054.css","pages/HowTo.svelte-2a43c1a2.js","assets/pages/HowTo.svelte-37c3566c.css"] : void 0),
-  () => __vitePreload(() => import("./pages/HowTo.svelte-2a43c1a2.js"), true ? ["pages/HowTo.svelte-2a43c1a2.js","assets/pages/HowTo.svelte-37c3566c.css","chunks/vendor-f5cbf4b0.js","assets/vendor-93930054.css"] : void 0)
+  () => __vitePreload(() => import("./pages/__layout.svelte-c828229a.js"), true ? ["pages/__layout.svelte-c828229a.js","chunks/vendor-4da3dbd9.js","assets/vendor-93930054.css"] : void 0),
+  () => __vitePreload(() => import("./error.svelte-ba568a40.js"), true ? ["error.svelte-ba568a40.js","chunks/vendor-4da3dbd9.js","assets/vendor-93930054.css"] : void 0),
+  () => __vitePreload(() => import("./pages/index.svelte-0cde7394.js"), true ? ["pages/index.svelte-0cde7394.js","chunks/vendor-4da3dbd9.js","assets/vendor-93930054.css","pages/HowTo.svelte-041df008.js","assets/pages/HowTo.svelte-37c3566c.css"] : void 0),
+  () => __vitePreload(() => import("./pages/HowTo.svelte-041df008.js"), true ? ["pages/HowTo.svelte-041df008.js","assets/pages/HowTo.svelte-37c3566c.css","chunks/vendor-4da3dbd9.js","assets/vendor-93930054.css"] : void 0)
 ];
 const routes = [
   [/^\/$/, [c[0], c[2]], [c[1]]],

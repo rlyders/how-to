@@ -215,7 +215,7 @@ function get_root_for_style(node) {
 function append_empty_stylesheet(node) {
   const style_element = element("style");
   append_stylesheet(get_root_for_style(node), style_element);
-  return style_element;
+  return style_element.sheet;
 }
 function append_stylesheet(node, style) {
   append(node.head || node, style);
@@ -392,7 +392,11 @@ function set_data(text2, data) {
     text2.data = data;
 }
 function set_style(node, key, value, important) {
-  node.style.setProperty(key, value, important ? "important" : "");
+  if (value === null) {
+    node.style.removeProperty(key);
+  } else {
+    node.style.setProperty(key, value, important ? "important" : "");
+  }
 }
 function toggle_class(element2, name, toggle) {
   element2.classList[toggle ? "add" : "remove"](name);
@@ -402,7 +406,7 @@ function custom_event(type, detail, bubbles = false) {
   e.initCustomEvent(type, bubbles, false, detail);
   return e;
 }
-const active_docs = new Set();
+const managed_styles = new Map();
 let active = 0;
 function hash(str) {
   let hash2 = 5381;
@@ -410,6 +414,11 @@ function hash(str) {
   while (i--)
     hash2 = (hash2 << 5) - hash2 ^ str.charCodeAt(i);
   return hash2 >>> 0;
+}
+function create_style_information(doc, node) {
+  const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+  managed_styles.set(doc, info);
+  return info;
 }
 function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
   const step = 16.666 / duration;
@@ -423,11 +432,9 @@ function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
 }`;
   const name = `__svelte_${hash(rule)}_${uid}`;
   const doc = get_root_for_style(node);
-  active_docs.add(doc);
-  const stylesheet = doc.__svelte_stylesheet || (doc.__svelte_stylesheet = append_empty_stylesheet(node).sheet);
-  const current_rules = doc.__svelte_rules || (doc.__svelte_rules = {});
-  if (!current_rules[name]) {
-    current_rules[name] = true;
+  const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+  if (!rules[name]) {
+    rules[name] = true;
     stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
   }
   const animation = node.style.animation || "";
@@ -450,14 +457,14 @@ function clear_rules() {
   raf(() => {
     if (active)
       return;
-    active_docs.forEach((doc) => {
-      const stylesheet = doc.__svelte_stylesheet;
+    managed_styles.forEach((info) => {
+      const { stylesheet } = info;
       let i = stylesheet.cssRules.length;
       while (i--)
         stylesheet.deleteRule(i);
-      doc.__svelte_rules = {};
+      info.rules = {};
     });
-    active_docs.clear();
+    managed_styles.clear();
   });
 }
 let current_component;
@@ -929,6 +936,33 @@ function writable(value, start = noop) {
     };
   }
   return { set, update: update2, subscribe };
+}
+function cubicOut(t) {
+  const f = t - 1;
+  return f * f * f + 1;
+}
+function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
+  const o = +getComputedStyle(node).opacity;
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t) => `opacity: ${t * o}`
+  };
+}
+function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 } = {}) {
+  const style = getComputedStyle(node);
+  const target_opacity = +style.opacity;
+  const transform = style.transform === "none" ? "" : style.transform;
+  const od = target_opacity * (1 - opacity);
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t, u) => `
+			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
+			opacity: ${target_opacity - od * u}`
+  };
 }
 const defaults = {
   color: "currentColor",
@@ -2309,33 +2343,6 @@ let HEX = "";
 while (IDX--)
   HEX += IDX.toString(36);
 var Slider_svelte_svelte_type_style_lang = "";
-function cubicOut(t) {
-  const f = t - 1;
-  return f * f * f + 1;
-}
-function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
-  const o = +getComputedStyle(node).opacity;
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `opacity: ${t * o}`
-  };
-}
-function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 } = {}) {
-  const style = getComputedStyle(node);
-  const target_opacity = +style.opacity;
-  const transform = style.transform === "none" ? "" : style.transform;
-  const od = target_opacity * (1 - opacity);
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t, u) => `
-			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
-			opacity: ${target_opacity - od * u}`
-  };
-}
 var Menu_svelte_svelte_type_style_lang = "";
 const get_activator_slot_changes = (dirty) => ({});
 const get_activator_slot_context = (ctx) => ({});
@@ -4529,4 +4536,4 @@ var Tooltip_svelte_svelte_type_style_lang = "";
 var mdiDotsVertical = "M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z";
 var mdiMagnify = "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z";
 var mdiMenu = "M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z";
-export { listen as $, get_spread_object as A, destroy_component as B, assign as C, writable as D, tick as E, create_slot as F, update_slot_base as G, get_all_dirty_from_scope as H, get_slot_changes as I, append_hydration as J, noop as K, AppBar as L, MaterialApp as M, Button as N, Overlay as O, Menu as P, Icon as Q, mdiMagnify as R, SvelteComponent as S, destroy_each as T, mdiMenu as U, ListItem as V, mdiDotsVertical as W, add_render_callback as X, create_out_transition as Y, create_in_transition as Z, fade as _, children as a, Card as a0, fly as a1, CardText as a2, CardActions as a3, prevent_default as a4, add_flush_callback as a5, ButtonGroup as a6, binding_callbacks as a7, bind as a8, ButtonGroupItem as a9, is_function as aa, attr as b, claim_element as c, detach as d, element as e, set_style as f, insert_hydration as g, claim_text as h, init as i, set_data as j, space as k, empty as l, claim_space as m, group_outros as n, transition_out as o, check_outros as p, transition_in as q, setContext as r, safe_not_equal as s, text as t, afterUpdate as u, onMount as v, create_component as w, claim_component as x, mount_component as y, get_spread_update as z };
+export { mdiDotsVertical as $, get_spread_object as A, destroy_component as B, assign as C, writable as D, tick as E, create_slot as F, update_slot_base as G, get_all_dirty_from_scope as H, get_slot_changes as I, append_hydration as J, noop as K, AppBar as L, MaterialApp as M, Button as N, Overlay as O, Menu as P, Icon as Q, mdiMagnify as R, SvelteComponent as S, destroy_each as T, mdiMenu as U, add_render_callback as V, create_in_transition as W, fly as X, create_out_transition as Y, fade as Z, ListItem as _, children as a, listen as a0, Card as a1, CardText as a2, CardActions as a3, prevent_default as a4, add_flush_callback as a5, ButtonGroup as a6, binding_callbacks as a7, bind as a8, ButtonGroupItem as a9, is_function as aa, attr as b, claim_element as c, detach as d, element as e, set_style as f, insert_hydration as g, claim_text as h, init as i, set_data as j, space as k, empty as l, claim_space as m, group_outros as n, transition_out as o, check_outros as p, transition_in as q, setContext as r, safe_not_equal as s, text as t, afterUpdate as u, onMount as v, create_component as w, claim_component as x, mount_component as y, get_spread_update as z };
