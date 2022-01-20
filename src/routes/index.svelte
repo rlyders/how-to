@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { fade, fly } from 'svelte/transition';
     import { MaterialApp, AppBar, Button, Icon, Overlay,Menu, ListItem } from 'svelte-materialify';
     import { mdiMenu, mdiMagnify, mdiDotsVertical  } from '@mdi/js';
   
@@ -14,7 +15,24 @@
       active = !active;
     }
   
-    let startingStepKey = 'who';
+	let currentHowToIdx = 0;
+    let startingStepKey = 'which';
+	let howToVisible = true;
+
+	function init(howToTitle) {
+		currentHowToIdx = howTos.findIndex( h => h.title === howToTitle);
+		startingStepKey = Object.keys(howTos[currentHowToIdx]).find( k => k !== 'title');
+	}
+
+	const useHowTo = (howToTitle) => {
+		howToVisible = false;
+		setTimeout( () => { 
+			init(howToTitle);
+			howToVisible = true; 
+		},1000);
+	}
+
+	init(howTos[currentHowToIdx].title);
   </script>
   
 <MaterialApp>
@@ -26,7 +44,7 @@
 					</Icon>
 				</Button>
 			</div>
-			<span slot="title" >{title}: {howTos[0].title}</span>
+			<span slot="title" >{title}: {howTos[currentHowToIdx].title}</span>
             <div style="flex-grow:1"></div>
 			<div>
 			<Button>Help</Button>
@@ -41,13 +59,19 @@
 				  	</Icon>
 				</Button>
 				</div>
-				{#each howTos as howTo,i}
-					<ListItem>{howTo.title}</ListItem>
+				{#each howTos as howToInList,i}
+					<ListItem on:click={e=>{useHowTo(howToInList.title)}} >{howToInList.title}</ListItem>
 				{/each}
 			  </Menu>
 			</div>
 		</AppBar>
-		<HowTo howToData={howTos[0]} {startingStepKey}></HowTo>
+		{#if howToVisible}
+			<div in:fly="{{ y: 200, duration: 750 }}" out:fade >
+				<HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
+			</div>
+		{:else}
+			<div>Loading...</div>
+		{/if}
 		<Overlay {active} absolute on:click="{toggleNavigation}" index={1}>
 		</Overlay>
     </div>
