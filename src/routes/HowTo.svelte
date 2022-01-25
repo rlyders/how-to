@@ -2,34 +2,23 @@
     import { fade, fly } from 'svelte/transition';
     import { ButtonGroup, ButtonGroupItem, Card, CardText, CardActions, Button, Breadcrumbs, Icon} from 'svelte-materialify';
     import { UserChoice } from '$lib/UserChoice';
-    import { onMount } from 'svelte';
 
     export let howToData;
     export let startingStepKey;
 
     let startingUserChoice = new UserChoice({path: `/${startingStepKey}`, stepKey: startingStepKey});
-    let userChoices: UserChoice[] = [startingUserChoice];
     let currentUserChoiceIdx = 0;
+    let userChoices: UserChoice[] = [startingUserChoice];
     let currentUserChoice: UserChoice;
-    $:currentUserChoice = currentUserChoiceIdx ? userChoices[currentUserChoiceIdx] : undefined;
-    $:currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined;
+    let currentHowToStep;
 
+    $: currentUserChoice = userChoices[currentUserChoiceIdx];
+    $: currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined;
+    
     let htmlContent = '';
     let visibleCard = true;
     let transitionMultiplier = 1;
 
-    function init() {
-        startingUserChoice = new UserChoice({path: `/${startingStepKey}`, stepKey: startingStepKey});
-        userChoices = [startingUserChoice];
-        currentUserChoiceIdx = 0;
-        console.log('**DEBUG** init(): howToData='+JSON.stringify(howToData, null, 2));
-        console.log('**DEBUG** init(): startingStepKey='+startingStepKey);
-    }
-
-    onMount( () => {
-        init();
-    } );
-        
     const handleClickChoice = (userChoice, choiceKey) => {
         if (choiceKey !== userChoice.selectedChoiceKey) {
             userChoices.length = currentUserChoiceIdx+1;
@@ -52,22 +41,22 @@
                 userChoices = userChoices;
             }
         }
-        transactionCard(false, () => {
+        transitionCard(false, () => {
             currentUserChoiceIdx++;
         });
     }
 
-    function transactionCard(toRight: boolean, callback: Function) {
+    function transitionCard(toRight: boolean, callback: Function) {
         transitionMultiplier = toRight ? -1 : 1;
         visibleCard=false;
         setTimeout( () => {
             callback();
             visibleCard=true;
-        }, 250);        
+        }, 500);
     }
 
     const handleClickBreadcrumb = (userChoiceIdx) => {
-        transactionCard(true, () => {
+        transitionCard(true, () => {
             currentUserChoiceIdx = userChoiceIdx;
         });
     }
@@ -164,6 +153,7 @@
         </div>
     {/if}
 {/if}
+
 <!-- <code>
     <div>currentUserChoiceIdx={currentUserChoiceIdx}</div>
     <div>userChoices[currentUserChoiceIdx]={JSON.stringify(userChoices[currentUserChoiceIdx], null, 2)}</div>
@@ -171,7 +161,10 @@
     <div>howToData[userChoices[currentUserChoiceIdx].stepKey]={JSON.stringify(howToData[userChoices[currentUserChoiceIdx].stepKey], null, 2)}</div>
     <div>startingUserChoice={JSON.stringify(startingUserChoice, null, 2)}</div>
     <div>userChoices={JSON.stringify(userChoices, null, 2)}</div>
+    <div>currentUserChoice={JSON.stringify(currentUserChoice, null, 2)}</div>
     <div>currentHowToStep={JSON.stringify(currentHowToStep, null, 2)}</div>
+    <div>currentUserChoice.stepKey={JSON.stringify(currentUserChoice ? currentUserChoice.stepKey : undefined, null, 2)}</div>
+    <div>howToData[currentUserChoice.stepKey]={JSON.stringify(currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined, null, 2)}</div>
 </code> -->
 
 <style>
