@@ -1,4 +1,4 @@
-import { S as SvelteComponent, i as init, s as safe_not_equal, e as element, k as space, l as empty, c as claim_element, a as children, d as detach, m as claim_space, b as attr, g as insert_hydration, q as transition_in, J as append_hydration, V as add_render_callback, Y as create_out_transition, o as transition_out, p as check_outros, w as create_component, x as claim_component, y as mount_component, B as destroy_component, T as destroy_each, v as onMount, n as group_outros, W as create_in_transition, Z as fade, t as text, h as claim_text, j as set_data, a0 as listen, a1 as Card, X as fly, a2 as CardText, a3 as CardActions, a4 as prevent_default, f as set_style, a5 as add_flush_callback, N as Button, a6 as ButtonGroup, a7 as binding_callbacks, a8 as bind, a9 as ButtonGroupItem, aa as is_function } from "../chunks/vendor-4da3dbd9.js";
+import { S as SvelteComponent, i as init, s as safe_not_equal, e as element, k as space, l as empty, c as claim_element, a as children, d as detach, m as claim_space, b as attr, g as insert_hydration, q as transition_in, J as append_hydration, V as add_render_callback, Y as create_out_transition, o as transition_out, p as check_outros, w as create_component, x as claim_component, y as mount_component, B as destroy_component, T as destroy_each, n as group_outros, W as create_in_transition, Z as fade, t as text, h as claim_text, j as set_data, a0 as listen, a1 as Card, X as fly, a2 as CardText, a3 as CardActions, a4 as prevent_default, f as set_style, a5 as add_flush_callback, N as Button, a6 as ButtonGroup, a7 as binding_callbacks, a8 as bind, a9 as ButtonGroupItem, aa as is_function } from "../chunks/vendor-4da3dbd9.js";
 class UserChoice {
   constructor(init2) {
     Object.assign(this, init2);
@@ -7,14 +7,14 @@ class UserChoice {
 var HowTo_svelte_svelte_type_style_lang = "";
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[18] = list[i];
-  child_ctx[20] = i;
+  child_ctx[17] = list[i];
+  child_ctx[19] = i;
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[21] = list[i];
-  child_ctx[23] = i;
+  child_ctx[20] = list[i];
+  child_ctx[22] = i;
   return child_ctx;
 }
 function create_if_block(ctx) {
@@ -22,7 +22,7 @@ function create_if_block(ctx) {
   let t;
   let if_block_anchor;
   let current;
-  let each_value_1 = ctx[0];
+  let each_value_1 = ctx[1];
   let each_blocks = [];
   for (let i = 0; i < each_value_1.length; i += 1) {
     each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
@@ -30,7 +30,7 @@ function create_if_block(ctx) {
   const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
     each_blocks[i] = null;
   });
-  let if_block = ctx[3] && create_if_block_1(ctx);
+  let if_block = ctx[4] && create_if_block_1(ctx);
   return {
     c() {
       ul = element("ul");
@@ -72,7 +72,7 @@ function create_if_block(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty & 131) {
-        each_value_1 = ctx2[0];
+        each_value_1 = ctx2[1];
         let i;
         for (i = 0; i < each_value_1.length; i += 1) {
           const child_ctx = get_each_context_1(ctx2, each_value_1, i);
@@ -92,10 +92,10 @@ function create_if_block(ctx) {
         }
         check_outros();
       }
-      if (ctx2[3]) {
+      if (ctx2[4]) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty & 8) {
+          if (dirty & 16) {
             transition_in(if_block, 1);
           }
         } else {
@@ -149,9 +149,9 @@ function create_if_block_5(ctx) {
   let li_outro;
   let current;
   function select_block_type(ctx2, dirty) {
-    if (ctx2[23] < ctx2[1])
+    if (ctx2[22] < ctx2[0])
       return create_if_block_6;
-    if (ctx2[23] == ctx2[1])
+    if (ctx2[22] == ctx2[0])
       return create_if_block_7;
   }
   let current_block_type = select_block_type(ctx);
@@ -226,7 +226,7 @@ function create_if_block_5(ctx) {
 }
 function create_if_block_7(ctx) {
   let span;
-  let t_value = (ctx[21].selectedChoiceKey ? ctx[21].selectedChoiceKey : ctx[21].stepKey) + "";
+  let t_value = (ctx[20].selectedChoiceKey ? ctx[20].selectedChoiceKey : ctx[20].stepKey) + "";
   let t;
   return {
     c() {
@@ -244,7 +244,7 @@ function create_if_block_7(ctx) {
       append_hydration(span, t);
     },
     p(ctx2, dirty) {
-      if (dirty & 1 && t_value !== (t_value = (ctx2[21].selectedChoiceKey ? ctx2[21].selectedChoiceKey : ctx2[21].stepKey) + ""))
+      if (dirty & 2 && t_value !== (t_value = (ctx2[20].selectedChoiceKey ? ctx2[20].selectedChoiceKey : ctx2[20].stepKey) + ""))
         set_data(t, t_value);
     },
     d(detaching) {
@@ -255,13 +255,13 @@ function create_if_block_7(ctx) {
 }
 function create_if_block_6(ctx) {
   let a;
-  let t_value = ctx[21].selectedChoiceKey + "";
+  let t_value = ctx[20].selectedChoiceKey + "";
   let t;
   let a_href_value;
   let mounted;
   let dispose;
   function click_handler() {
-    return ctx[10](ctx[23]);
+    return ctx[10](ctx[22]);
   }
   return {
     c() {
@@ -277,7 +277,7 @@ function create_if_block_6(ctx) {
       this.h();
     },
     h() {
-      attr(a, "href", a_href_value = ctx[21].path);
+      attr(a, "href", a_href_value = ctx[20].path);
       attr(a, "class", "svelte-vct3j4");
     },
     m(target, anchor) {
@@ -290,9 +290,9 @@ function create_if_block_6(ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & 1 && t_value !== (t_value = ctx[21].selectedChoiceKey + ""))
+      if (dirty & 2 && t_value !== (t_value = ctx[20].selectedChoiceKey + ""))
         set_data(t, t_value);
-      if (dirty & 1 && a_href_value !== (a_href_value = ctx[21].path)) {
+      if (dirty & 2 && a_href_value !== (a_href_value = ctx[20].path)) {
         attr(a, "href", a_href_value);
       }
     },
@@ -307,7 +307,7 @@ function create_if_block_6(ctx) {
 function create_each_block_1(ctx) {
   let if_block_anchor;
   let current;
-  let if_block = ctx[23] <= ctx[1] && create_if_block_5(ctx);
+  let if_block = ctx[22] <= ctx[0] && create_if_block_5(ctx);
   return {
     c() {
       if (if_block)
@@ -326,10 +326,10 @@ function create_each_block_1(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (ctx2[23] <= ctx2[1]) {
+      if (ctx2[22] <= ctx2[0]) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty & 2) {
+          if (dirty & 1) {
             transition_in(if_block, 1);
           }
         } else {
@@ -401,7 +401,7 @@ function create_if_block_1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const card_changes = {};
-      if (dirty & 16777252) {
+      if (dirty & 8388620) {
         card_changes.$$scope = { dirty, ctx };
       }
       card.$set(card_changes);
@@ -414,7 +414,7 @@ function create_if_block_1(ctx) {
         if (div_outro)
           div_outro.end(1);
         div_intro = create_in_transition(div, fly, {
-          x: 200 * ctx[4],
+          x: 200 * ctx[5],
           duration: 750
         });
         div_intro.start();
@@ -438,7 +438,7 @@ function create_if_block_1(ctx) {
   };
 }
 function create_else_block(ctx) {
-  let t_value = (ctx[5].question ? ctx[5].question : ctx[5]) + "";
+  let t_value = (ctx[3].question ? ctx[3].question : ctx[3]) + "";
   let t;
   return {
     c() {
@@ -451,7 +451,7 @@ function create_else_block(ctx) {
       insert_hydration(target, t, anchor);
     },
     p(ctx2, dirty) {
-      if (dirty & 32 && t_value !== (t_value = (ctx2[5].question ? ctx2[5].question : ctx2[5]) + ""))
+      if (dirty & 8 && t_value !== (t_value = (ctx2[3].question ? ctx2[3].question : ctx2[3]) + ""))
         set_data(t, t_value);
     },
     d(detaching) {
@@ -466,18 +466,18 @@ function create_if_block_4(ctx) {
   return {
     c() {
       a = element("a");
-      t = text(ctx[5]);
+      t = text(ctx[3]);
       this.h();
     },
     l(nodes) {
       a = claim_element(nodes, "A", { href: true, target: true });
       var a_nodes = children(a);
-      t = claim_text(a_nodes, ctx[5]);
+      t = claim_text(a_nodes, ctx[3]);
       a_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(a, "href", ctx[5]);
+      attr(a, "href", ctx[3]);
       attr(a, "target", "_tab");
     },
     m(target, anchor) {
@@ -485,10 +485,10 @@ function create_if_block_4(ctx) {
       append_hydration(a, t);
     },
     p(ctx2, dirty) {
-      if (dirty & 32)
-        set_data(t, ctx2[5]);
-      if (dirty & 32) {
-        attr(a, "href", ctx2[5]);
+      if (dirty & 8)
+        set_data(t, ctx2[3]);
+      if (dirty & 8) {
+        attr(a, "href", ctx2[3]);
       }
     },
     d(detaching) {
@@ -505,10 +505,10 @@ function create_default_slot_5(ctx) {
   let div1;
   let show_if;
   function select_block_type_1(ctx2, dirty) {
-    if (dirty & 32)
+    if (dirty & 8)
       show_if = null;
     if (show_if == null)
-      show_if = !!((typeof ctx2[5] == "string" || ctx2[5] instanceof String) && isValidHttpUrl(ctx2[5]));
+      show_if = !!((typeof ctx2[3] == "string" || ctx2[3] instanceof String) && isValidHttpUrl(ctx2[3]));
     if (show_if)
       return create_if_block_4;
     return create_else_block;
@@ -605,7 +605,7 @@ function create_if_block_3(ctx) {
     },
     p(ctx2, dirty) {
       const button_changes = {};
-      if (dirty & 16777216) {
+      if (dirty & 8388608) {
         button_changes.$$scope = { dirty, ctx: ctx2 };
       }
       button.$set(button_changes);
@@ -657,8 +657,8 @@ function create_if_block_2(ctx) {
     $$slots: { default: [create_default_slot_2] },
     $$scope: { ctx }
   };
-  if (ctx[5].selectedChoiceKey !== void 0) {
-    buttongroup_props.value = ctx[5].selectedChoiceKey;
+  if (ctx[3].selectedChoiceKey !== void 0) {
+    buttongroup_props.value = ctx[3].selectedChoiceKey;
   }
   buttongroup = new ButtonGroup({ props: buttongroup_props });
   binding_callbacks.push(() => bind(buttongroup, "value", buttongroup_value_binding));
@@ -686,12 +686,12 @@ function create_if_block_2(ctx) {
     },
     p(ctx2, dirty) {
       const buttongroup_changes = {};
-      if (dirty & 16777252) {
+      if (dirty & 8388620) {
         buttongroup_changes.$$scope = { dirty, ctx: ctx2 };
       }
-      if (!updating_value && dirty & 32) {
+      if (!updating_value && dirty & 8) {
         updating_value = true;
-        buttongroup_changes.value = ctx2[5].selectedChoiceKey;
+        buttongroup_changes.value = ctx2[3].selectedChoiceKey;
         add_flush_callback(() => updating_value = false);
       }
       buttongroup.$set(buttongroup_changes);
@@ -714,7 +714,7 @@ function create_if_block_2(ctx) {
   };
 }
 function create_default_slot_3(ctx) {
-  let t0_value = ctx[18] + "";
+  let t0_value = ctx[17] + "";
   let t0;
   let t1;
   return {
@@ -731,7 +731,7 @@ function create_default_slot_3(ctx) {
       insert_hydration(target, t1, anchor);
     },
     p(ctx2, dirty) {
-      if (dirty & 32 && t0_value !== (t0_value = ctx2[18] + ""))
+      if (dirty & 8 && t0_value !== (t0_value = ctx2[17] + ""))
         set_data(t0, t0_value);
     },
     d(detaching) {
@@ -747,14 +747,14 @@ function create_each_block(ctx) {
   let current;
   buttongroupitem = new ButtonGroupItem({
     props: {
-      value: ctx[18],
+      value: ctx[17],
       $$slots: { default: [create_default_slot_3] },
       $$scope: { ctx }
     }
   });
   buttongroupitem.$on("click", function() {
-    if (is_function(ctx[6](ctx[2], ctx[18])))
-      ctx[6](ctx[2], ctx[18]).apply(this, arguments);
+    if (is_function(ctx[6](ctx[2], ctx[17])))
+      ctx[6](ctx[2], ctx[17]).apply(this, arguments);
   });
   return {
     c() {
@@ -770,9 +770,9 @@ function create_each_block(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const buttongroupitem_changes = {};
-      if (dirty & 32)
-        buttongroupitem_changes.value = ctx[18];
-      if (dirty & 16777248) {
+      if (dirty & 8)
+        buttongroupitem_changes.value = ctx[17];
+      if (dirty & 8388616) {
         buttongroupitem_changes.$$scope = { dirty, ctx };
       }
       buttongroupitem.$set(buttongroupitem_changes);
@@ -795,7 +795,7 @@ function create_each_block(ctx) {
 function create_default_slot_2(ctx) {
   let each_1_anchor;
   let current;
-  let each_value = Object.keys(ctx[5].choices);
+  let each_value = Object.keys(ctx[3].choices);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -824,8 +824,8 @@ function create_default_slot_2(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (dirty & 100) {
-        each_value = Object.keys(ctx2[5].choices);
+      if (dirty & 76) {
+        each_value = Object.keys(ctx2[3].choices);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx2, each_value, i);
@@ -873,8 +873,8 @@ function create_default_slot_1(ctx) {
   let t;
   let if_block1_anchor;
   let current;
-  let if_block0 = ctx[5].learnMore && create_if_block_3(ctx);
-  let if_block1 = ctx[5].choices && create_if_block_2(ctx);
+  let if_block0 = ctx[3].learnMore && create_if_block_3(ctx);
+  let if_block1 = ctx[3].choices && create_if_block_2(ctx);
   return {
     c() {
       div = element("div");
@@ -912,10 +912,10 @@ function create_default_slot_1(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (ctx2[5].learnMore) {
+      if (ctx2[3].learnMore) {
         if (if_block0) {
           if_block0.p(ctx2, dirty);
-          if (dirty & 32) {
+          if (dirty & 8) {
             transition_in(if_block0, 1);
           }
         } else {
@@ -931,10 +931,10 @@ function create_default_slot_1(ctx) {
         });
         check_outros();
       }
-      if (ctx2[5].choices) {
+      if (ctx2[3].choices) {
         if (if_block1) {
           if_block1.p(ctx2, dirty);
-          if (dirty & 32) {
+          if (dirty & 8) {
             transition_in(if_block1, 1);
           }
         } else {
@@ -1013,12 +1013,12 @@ function create_default_slot(ctx) {
     },
     p(ctx2, dirty) {
       const cardtext_changes = {};
-      if (dirty & 16777248) {
+      if (dirty & 8388616) {
         cardtext_changes.$$scope = { dirty, ctx: ctx2 };
       }
       cardtext.$set(cardtext_changes);
       const cardactions_changes = {};
-      if (dirty & 16777252) {
+      if (dirty & 8388620) {
         cardactions_changes.$$scope = { dirty, ctx: ctx2 };
       }
       cardactions.$set(cardactions_changes);
@@ -1046,7 +1046,7 @@ function create_default_slot(ctx) {
 function create_fragment(ctx) {
   let if_block_anchor;
   let current;
-  let if_block = ctx[5] && create_if_block(ctx);
+  let if_block = ctx[3] && create_if_block(ctx);
   return {
     c() {
       if (if_block)
@@ -1065,10 +1065,10 @@ function create_fragment(ctx) {
       current = true;
     },
     p(ctx2, [dirty]) {
-      if (ctx2[5]) {
+      if (ctx2[3]) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty & 32) {
+          if (dirty & 8) {
             transition_in(if_block, 1);
           }
         } else {
@@ -1113,34 +1113,21 @@ function isValidHttpUrl(possibleUrlStr) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 function instance($$self, $$props, $$invalidate) {
-  let currentHowToStep;
   let { howToData } = $$props;
   let { startingStepKey } = $$props;
   let startingUserChoice = new UserChoice({
     path: `/${startingStepKey}`,
     stepKey: startingStepKey
   });
-  let userChoices = [startingUserChoice];
   let currentUserChoiceIdx = 0;
+  let userChoices = [startingUserChoice];
   let currentUserChoice;
+  let currentHowToStep;
   let visibleCard = true;
   let transitionMultiplier = 1;
-  function init2() {
-    startingUserChoice = new UserChoice({
-      path: `/${startingStepKey}`,
-      stepKey: startingStepKey
-    });
-    $$invalidate(0, userChoices = [startingUserChoice]);
-    $$invalidate(1, currentUserChoiceIdx = 0);
-    console.log("**DEBUG** init(): howToData=" + JSON.stringify(howToData, null, 2));
-    console.log("**DEBUG** init(): startingStepKey=" + startingStepKey);
-  }
-  onMount(() => {
-    init2();
-  });
   const handleClickChoice = (userChoice, choiceKey) => {
     if (choiceKey !== userChoice.selectedChoiceKey) {
-      $$invalidate(0, userChoices.length = currentUserChoiceIdx + 1, userChoices);
+      $$invalidate(1, userChoices.length = currentUserChoiceIdx + 1, userChoices);
       userChoice.selectedChoiceKey = choiceKey;
       userChoice.selectedChoiceValue = howToData[userChoice.stepKey].choices[choiceKey];
       if (currentUserChoiceIdx + 1 >= userChoices.length) {
@@ -1153,26 +1140,26 @@ function instance($$self, $$props, $$invalidate) {
         } else {
           newUserChoice = new UserChoice({ url: userChoice.selectedChoiceValue });
         }
-        $$invalidate(0, userChoices = [...userChoices, newUserChoice]);
+        $$invalidate(1, userChoices = [...userChoices, newUserChoice]);
       } else {
-        $$invalidate(0, userChoices);
+        $$invalidate(1, userChoices);
       }
     }
-    transactionCard(false, () => {
-      $$invalidate(1, currentUserChoiceIdx++, currentUserChoiceIdx);
+    transitionCard(false, () => {
+      $$invalidate(0, currentUserChoiceIdx++, currentUserChoiceIdx);
     });
   };
-  function transactionCard(toRight, callback) {
-    $$invalidate(4, transitionMultiplier = toRight ? -1 : 1);
-    $$invalidate(3, visibleCard = false);
+  function transitionCard(toRight, callback) {
+    $$invalidate(5, transitionMultiplier = toRight ? -1 : 1);
+    $$invalidate(4, visibleCard = false);
     setTimeout(() => {
       callback();
-      $$invalidate(3, visibleCard = true);
-    }, 250);
+      $$invalidate(4, visibleCard = true);
+    }, 500);
   }
   const handleClickBreadcrumb = (userChoiceIdx) => {
-    transactionCard(true, () => {
-      $$invalidate(1, currentUserChoiceIdx = userChoiceIdx);
+    transitionCard(true, () => {
+      $$invalidate(0, currentUserChoiceIdx = userChoiceIdx);
     });
   };
   const click_handler = (userChoiceIdx) => handleClickBreadcrumb(userChoiceIdx);
@@ -1182,7 +1169,7 @@ function instance($$self, $$props, $$invalidate) {
   function buttongroup_value_binding(value) {
     if ($$self.$$.not_equal(currentHowToStep.selectedChoiceKey, value)) {
       currentHowToStep.selectedChoiceKey = value;
-      $$invalidate(5, currentHowToStep), $$invalidate(2, currentUserChoice), $$invalidate(8, howToData), $$invalidate(1, currentUserChoiceIdx), $$invalidate(0, userChoices);
+      $$invalidate(3, currentHowToStep), $$invalidate(2, currentUserChoice), $$invalidate(8, howToData), $$invalidate(1, userChoices), $$invalidate(0, currentUserChoiceIdx);
     }
   }
   $$self.$$set = ($$props2) => {
@@ -1193,19 +1180,19 @@ function instance($$self, $$props, $$invalidate) {
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & 3) {
-      $$invalidate(2, currentUserChoice = currentUserChoiceIdx ? userChoices[currentUserChoiceIdx] : void 0);
+      $$invalidate(2, currentUserChoice = userChoices[currentUserChoiceIdx]);
     }
     if ($$self.$$.dirty & 260) {
-      $$invalidate(5, currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : void 0);
+      $$invalidate(3, currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : void 0);
     }
   };
   return [
-    userChoices,
     currentUserChoiceIdx,
+    userChoices,
     currentUserChoice,
+    currentHowToStep,
     visibleCard,
     transitionMultiplier,
-    currentHowToStep,
     handleClickChoice,
     handleClickBreadcrumb,
     howToData,
