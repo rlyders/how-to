@@ -1,8 +1,8 @@
 # How-To web app
 I created this [Svelte](https://svelte.dev/) `How-To` web app of just an initial 111 lines of code across two Svelte files ([App.svelte](src\App.svelte) and [HowTo.svelte](src\HowTo.svelte)) for fun as a prototype just to see how such a `How-To` web app might be implemented. I went through various revisions until I finally landed upon this latest version. At first, I worked towards a live and dynamic UI of a flow-chart and decision tree with live connecting lines between draggable UI elements that the user would follow as they clicked on various choices. That flow-chart UI was visually interesting, but somewhat distracting and clunky. The current UI I designed in this web app is more user-friendly and easy to naturally traverse both forwards and in reverse. This current UI allows the user to easily go back to previous questions to change a prior choice.
 
-* Live demo app hosted via [GitHub](https://rlyders.github.io/how-to)
-* Live demo app hosted via [Vercel](https://how-to-mu.vercel.app)
+* [Live demo app hosted via GitHub](https://rlyders.github.io/how-to)
+* [Live demo app hosted via Vercel](https://how-to-mu.vercel.app)
 
 One of my key design goals of this app was to allow this app to handle a wide variety of How-Tos without having to embed any business rules in the app code itself. I came up with a YAML file format that acts as the definition of each How-To. Currently, the How-To YAML definition files are a static collection of files manually created and stored in the `public/how-tos` folder of this project.
 
