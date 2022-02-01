@@ -1,0 +1,62 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-5828df3d.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-43aaedd4.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/runtime/components/layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/index.svelte",
+      "src/routes/HowTo.svelte"
+    ]
+  },
+  ".svelte-kit/runtime/components/layout.svelte": {
+    "file": "layout.svelte-01da968c.js",
+    "src": ".svelte-kit/runtime/components/layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-43aaedd4.js"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-7396ca8b.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-43aaedd4.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-3b66eee5.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-43aaedd4.js",
+      "src/routes/HowTo.svelte"
+    ],
+    "css": [
+      "assets/pages/index.svelte-7a595cb6.css"
+    ]
+  },
+  "src/routes/HowTo.svelte": {
+    "file": "pages/HowTo.svelte-579d0da2.js",
+    "src": "src/routes/HowTo.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-43aaedd4.js"
+    ],
+    "css": [
+      "assets/pages/HowTo.svelte-28ecda8d.css"
+    ]
+  },
+  "_vendor-43aaedd4.js": {
+    "file": "chunks/vendor-43aaedd4.js"
+  }
+}
