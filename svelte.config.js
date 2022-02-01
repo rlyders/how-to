@@ -9,6 +9,9 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+		paths: {
+			base: process.env.NODE_ENV === 'development' ? undefined : '/how-to'
+		  },
 		adapter: adapter({
 			// default options are shown
 			pages: 'build',
