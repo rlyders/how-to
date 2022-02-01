@@ -1,20 +1,25 @@
 <script lang="ts">
-    import { fade, fly } from 'svelte/transition';
-    import { MaterialApp, AppBar, Button, Icon, Overlay,Menu, ListItem } from 'svelte-materialify';
-    import { mdiMenu, mdiMagnify, mdiDotsVertical  } from '@mdi/js';
+    import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
+    import IconButton from '@smui/icon-button';
+
+    import Menu, { MenuComponentDev } from '@smui/menu';
+    import List, { Item, Separator, Text } from '@smui/list';
   
     import customerFeedbackHowToData from '$lib/data/how-tos/customer-feedback.yaml';
     import turnOnLightsHowToData from '$lib/data/how-tos/turn-on-lights.yaml';
+    import HowTo from './HowTo.svelte';
+    import { fade, fly } from 'svelte/transition';
+
     let howTos = [customerFeedbackHowToData, turnOnLightsHowToData];
     let title = "How-To";
-  
-    import HowTo from './HowTo.svelte';
-  
-    let active = false;
-    function toggleNavigation() {
-      active = !active;
-    }
-  
+
+    let menu: MenuComponentDev;
+
+    let prominent = false;
+    let dense = false;
+    let secondaryColor = false;
+
+    let active = false;  
 	let currentHowToIdx = 0;
     let startingStepKey = 'which';
 	let howToVisible = true;
@@ -33,38 +38,47 @@
 	}
 
 	init(howTos[currentHowToIdx].title);
-  </script>
-  
-<MaterialApp>
-	<div style="position:relative;height:250px">
-		<AppBar position="static">
-			<div slot="icon">
-				<Button fab depressed on:click="{toggleNavigation}">
-					<Icon path="{mdiMenu}">
-					</Icon>
-				</Button>
-			</div>
-			<span slot="title" >{title}: {howTos[currentHowToIdx].title}</span>
-            <div style="flex-grow:1"></div>
-			<div>
-			<Button>Help</Button>
-			<Button fab depressed>
-				<Icon path="{mdiMagnify}">
-				</Icon>
-			</Button>
-			<Menu right>
-				<div slot="activator">
-				  <Button fab depressed>
-					<Icon path="{mdiDotsVertical}">
-				  	</Icon>
-				</Button>
-				</div>
-				{#each howTos as howToInList,i}
-					<ListItem on:click={e=>{useHowTo(howToInList.title)}} >{howToInList.title}</ListItem>
-				{/each}
-			  </Menu>
-			</div>
-		</AppBar>
+
+</script> 
+ 
+  <div class="flexy">
+    <div class="top-app-bar-container flexor">
+      <TopAppBar
+        variant="static"
+        {prominent}
+        {dense}
+        color={secondaryColor ? 'secondary' : 'primary'}
+      >
+        <Row>
+          <Section>
+            <IconButton class="material-icons" on:click={() => menu.setOpen(true)}>menu</IconButton>
+              <Menu bind:this={menu}>
+                <List>
+                    {#each howTos as howToInList,i}
+                        <Item on:SMUI:action={() => useHowTo(howToInList.title)}>
+                            <Text>{howToInList.title}</Text>
+                        </Item>    
+    				{/each}
+                </List>
+              </Menu>
+          
+
+            <Title>{title}: {howTos[currentHowToIdx].title}</Title>
+          </Section>
+          <Section align="end" toolbar>
+            <IconButton class="material-icons" aria-label="Download"
+              >file_download</IconButton
+            >
+            <IconButton class="material-icons" aria-label="Print this page"
+              >print</IconButton
+            >
+            <IconButton class="material-icons" aria-label="Bookmark this page"
+              >bookmark</IconButton
+            >
+          </Section>
+        </Row>
+      </TopAppBar>
+      <div class="flexor-content">
 		{#if howToVisible}
 			<div in:fly="{{ y: 200, duration: 750 }}" out:fade >
 				<HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
@@ -72,7 +86,44 @@
 		{:else}
 			<div>Loading...</div>
 		{/if}
-		<Overlay {active} absolute on:click="{toggleNavigation}" index={1}>
-		</Overlay>
+      </div>
     </div>
-</MaterialApp>
+  </div>
+  
+  <style>
+    .top-app-bar-container {
+      width: 100%;
+      height: 600px;
+      border: 1px solid
+        var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
+      margin: 0 18px 18px 0;
+      background-color: var(--mdc-theme-background, #fff);
+  
+      overflow: auto;
+      display: inline-block;
+    }
+  
+    @media (max-width: 480px) {
+      .top-app-bar-container {
+        margin-right: 0;
+      }
+    }
+  
+    .flexy {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    .flexor {
+      display: inline-flex;
+      flex-direction: column;
+    }
+  
+    .flexor-content {
+      flex-basis: 0;
+      height: 0;
+      flex-grow: 1;
+      overflow: auto;
+    }
+  </style>
+  

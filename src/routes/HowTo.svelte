@@ -1,6 +1,14 @@
 <script lang="ts">
     import { fade, fly } from 'svelte/transition';
-    import { ButtonGroup, ButtonGroupItem, Card, CardText, CardActions, Button, Breadcrumbs, Icon} from 'svelte-materialify';
+    import Card, {
+        Content,
+        PrimaryAction,
+        Actions,
+        ActionButtons,
+        ActionIcons,
+    } from '@smui/card';
+    import Button, { Group, Label } from '@smui/button';
+    import IconButton, { Icon } from '@smui/icon-button';
     import { UserChoice } from '$lib/UserChoice';
 
     export let howToData;
@@ -115,7 +123,7 @@
     {#if visibleCard }
         <div in:fly="{{ x: 200*transitionMultiplier, duration: 750 }}" out:fade class="card-container">
             <Card padded>
-                <CardText>
+                <Content>
                     <div class="container" style="display: flex;">
                         <div style="margin: 0px; padding: 10px 0px; color: #888; width: 50px">
                             Guide:
@@ -128,8 +136,8 @@
                             {/if}
                         </div>
                     </div>
-                </CardText>
-                <CardActions>
+                </Content>
+                <Actions>
                     <div style="flex: 1;">
                         {#if currentHowToStep.learnMore}                      
                             <Button text class="primary-text" on:click={() => {window.open(currentHowToStep.learnMore, "_tab")}}>Learn More</Button>
@@ -137,18 +145,18 @@
                     </div>
                     {#if currentHowToStep.choices}
                         <div class="text-center" style="flex: 20;">
-                            <ButtonGroup mandatory activeClass="selected-choice white-text" 
+                            <Group mandatory activeClass="selected-choice white-text" 
                                 bind:value={currentHowToStep.selectedChoiceKey}>
                                 {#each Object.keys(currentHowToStep.choices) as choiceKey,choiceIdx}
-                                    <ButtonGroupItem 
+                                    <Button
                                         on:click={handleClickChoice(currentUserChoice, choiceKey)} value={choiceKey}>
                                         {choiceKey}
-                                    </ButtonGroupItem>
+                                    </Button>
                                 {/each}
-                            </ButtonGroup>
+                            </Group>
                         </div>
                     {/if}
-                </CardActions>    
+                </Actions>    
             </Card>
         </div>
     {/if}

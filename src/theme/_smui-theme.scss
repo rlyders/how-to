@@ -2,29 +2,24 @@
 
 @use '@material/theme/color-palette';
 
-$background: #fff;
-
+// Svelte Colors!
 @use '@material/theme/index' as theme with (
-  $primary: color-palette.$purple-500,
-  $secondary: color-palette.$teal-600,
+  $primary: #ff3e00,
+  $secondary: #676778,
   $surface: #fff,
-  $background: $background,
-  $error: #b00020
+  $background: #fff,
+  $error: color-palette.$red-900
 );
 
 html,
 body {
-  background-color: $background;
-  color: if(theme.contrast-tone($background) == 'dark', #000, #fff);
+  background-color: theme.$surface;
+  color: theme.$on-surface;
 }
 
 a {
-  color: color-palette.$blue-500;
+  color: #40b3ff;
 }
 a:visited {
-  color: color-palette.$blue-800;
-}
-
-.selected-choice {
-  background-color: #00A !important;
+  color: color.scale(#40b3ff, $lightness: -35%);
 }
