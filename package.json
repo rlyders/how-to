@@ -16,14 +16,18 @@
     "deploy": "node ./gh-pages.js"
   },
   "devDependencies": {
+    "@material/typography": "^13.0.0",
     "@rollup/plugin-yaml": "^3.1.0",
+    "@smui/banner": "^6.0.0-beta.13",
     "@smui/button": "^6.0.0-beta.13",
     "@smui/card": "^6.0.0-beta.13",
     "@smui/checkbox": "^6.0.0-beta.13",
+    "@smui/floating-label": "^6.0.0-beta.13",
     "@smui/form-field": "^6.0.0-beta.13",
     "@smui/icon-button": "^6.0.0-beta.13",
     "@smui/list": "^6.0.0-beta.13",
     "@smui/menu": "^6.0.0-beta.13",
+    "@smui/segmented-button": "^6.0.0-beta.13",
     "@smui/top-app-bar": "^6.0.0-beta.13",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-static": "^1.0.0-next.26",

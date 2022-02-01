@@ -1,15 +1,11 @@
 <script lang="ts">
     import { fade, fly } from 'svelte/transition';
-    import Card, {
-        Content,
-        PrimaryAction,
-        Actions,
-        ActionButtons,
-        ActionIcons,
-    } from '@smui/card';
-    import Button, { Group, Label } from '@smui/button';
-    import IconButton, { Icon } from '@smui/icon-button';
+    import Card, { Content, Actions } from '@smui/card';
+    import Button from '@smui/button';
     import { UserChoice } from '$lib/UserChoice';
+    import SegmentedButton, { Segment } from '@smui/segmented-button';
+    import { Label } from '@smui/common';
+    import List, { Item, Text, PrimaryText, SecondaryText } from '@smui/list';
 
     export let howToData;
     export let startingStepKey;
@@ -19,6 +15,7 @@
     let userChoices: UserChoice[] = [startingUserChoice];
     let currentUserChoice: UserChoice;
     let currentHowToStep;
+    let selected;
 
     $: currentUserChoice = userChoices[currentUserChoiceIdx];
     $: currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined;
@@ -28,10 +25,12 @@
     let transitionMultiplier = 1;
 
     const handleClickChoice = (userChoice, choiceKey) => {
+        selected = choiceKey;
         if (choiceKey !== userChoice.selectedChoiceKey) {
             userChoices.length = currentUserChoiceIdx+1;
             userChoice.selectedChoiceKey=choiceKey;
             userChoice.selectedChoiceValue=howToData[userChoice.stepKey].choices[choiceKey];
+
             if (currentUserChoiceIdx+1 >= userChoices.length) {
                 let newUserChoice;
                 if (howToData.hasOwnProperty(userChoice.selectedChoiceValue)) {
@@ -66,6 +65,7 @@
     const handleClickBreadcrumb = (userChoiceIdx) => {
         transitionCard(true, () => {
             currentUserChoiceIdx = userChoiceIdx;
+            selected = userChoices[currentUserChoiceIdx].selectedChoiceKey;
         });
     }
 
@@ -102,19 +102,19 @@
         return url.protocol === "http:" || url.protocol === "https:";
     }
     // breadcrumb label:(nextStepKey.length <= 20) ? nextStepKey : nextStepKey.substr(0, 9) + "..." + nextStepKey.substr(nextStepKey.length-10);
+
 </script>
 
 {#if currentHowToStep }
-
     <ul class="breadcrumb">
         {#each userChoices as userChoice,userChoiceIdx}
             {#if userChoiceIdx <= currentUserChoiceIdx}
-                <li in:fly="{{ y: 200, duration: 750 }}" out:fade>
-                    {#if userChoiceIdx < currentUserChoiceIdx}
-                        <a href={userChoice.path} on:click|preventDefault={() => handleClickBreadcrumb(userChoiceIdx)}>{userChoice.selectedChoiceKey}</a>
-                    {:else if userChoiceIdx == currentUserChoiceIdx}
-                        <span>{userChoice.selectedChoiceKey ? userChoice.selectedChoiceKey : userChoice.stepKey}</span>
-                    {/if}
+                <li in:fly="{{ y: 200, duration: 750 }}" out:fade>                        
+                        {#if userChoiceIdx < currentUserChoiceIdx}
+                            <Button on:click={() => handleClickBreadcrumb(userChoiceIdx)}>{userChoice.selectedChoiceKey}</Button>
+                        {:else if userChoiceIdx == currentUserChoiceIdx}
+                            <Button disabled>{userChoice.selectedChoiceKey ? userChoice.selectedChoiceKey : userChoice.stepKey}</Button>
+                        {/if}
                 </li>
             {/if}
         {/each}    
@@ -124,39 +124,42 @@
         <div in:fly="{{ x: 200*transitionMultiplier, duration: 750 }}" out:fade class="card-container">
             <Card padded>
                 <Content>
-                    <div class="container" style="display: flex;">
+                    <div class="container" style="display: flex; flex-wrap: wrap;">
                         <div style="margin: 0px; padding: 10px 0px; color: #888; width: 50px">
-                            Guide:
+                            <div class="mdc-typography--body1">Guide:</div>
                         </div>
-                        <div style="flex-grow: 1; font-size: 24px; background-color: #F3F5F6; margin: 10px; padding: 25px 20px;">
+                        <div style="flex-grow: 1; font-size: 24px; background-color: #F3F5F6; margin: 10px; padding: 25px 20px;" class="mdc-typography--body1">
                             {#if (typeof currentHowToStep == 'string' || currentHowToStep instanceof String) && isValidHttpUrl(currentHowToStep)}
                                 <a href={currentHowToStep} target="_tab">{currentHowToStep}</a>
                             {:else}
                                 {currentHowToStep.question ? currentHowToStep.question : currentHowToStep}
                             {/if}
+                            <Actions>
+                                {#if currentHowToStep.choices}
+                                    <div class="segmented-button-group">
+                                        <div>
+                                        <SegmentedButton
+                                            segments={Object.keys(currentHowToStep.choices)} 
+                                            let:segment singleSelect 
+                                            bind:selected>
+                                            <Segment {segment}
+                                                on:click={() => handleClickChoice(currentUserChoice, segment)} 
+                                                style="flex: 1;">
+                                                <Label>{segment}</Label>
+                                            </Segment>
+                                        </SegmentedButton>             
+                                        </div>
+                                    </div>                 
+                                {/if}
+                            </Actions>                
                         </div>
                     </div>
-                </Content>
-                <Actions>
-                    <div style="flex: 1;">
-                        {#if currentHowToStep.learnMore}                      
+                    {#if currentHowToStep.learnMore}                      
+                        <div class="learn-more">
                             <Button text class="primary-text" on:click={() => {window.open(currentHowToStep.learnMore, "_tab")}}>Learn More</Button>
-                        {/if}
-                    </div>
-                    {#if currentHowToStep.choices}
-                        <div class="text-center" style="flex: 20;">
-                            <Group mandatory activeClass="selected-choice white-text" 
-                                bind:value={currentHowToStep.selectedChoiceKey}>
-                                {#each Object.keys(currentHowToStep.choices) as choiceKey,choiceIdx}
-                                    <Button
-                                        on:click={handleClickChoice(currentUserChoice, choiceKey)} value={choiceKey}>
-                                        {choiceKey}
-                                    </Button>
-                                {/each}
-                            </Group>
                         </div>
                     {/if}
-                </Actions>    
+                </Content>
             </Card>
         </div>
     {/if}
@@ -173,37 +176,51 @@
     <div>currentHowToStep={JSON.stringify(currentHowToStep, null, 2)}</div>
     <div>currentUserChoice.stepKey={JSON.stringify(currentUserChoice ? currentUserChoice.stepKey : undefined, null, 2)}</div>
     <div>howToData[currentUserChoice.stepKey]={JSON.stringify(currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : undefined, null, 2)}</div>
+    <div>selected={selected}</div>
 </code> -->
 
 <style>
-ul.breadcrumb {
-  padding: 10px 16px;
-  list-style: none;
-  background-color: #eee;
-}
+    ul.breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+        background-color: #eee;
+    }
 
-/* Display list items side by side */
-ul.breadcrumb li {
-  display: inline;
-  font-size: 18px;
-}
+    /* Display list items side by side */
+    ul.breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
 
-/* Add a slash symbol (/) before/behind each list item */
-ul.breadcrumb li+li:before {
-  padding: 8px;
-  color: black;
-  content: "/\00a0";
-}
+    /* Add a slash symbol (/) before/behind each list item */
+    ul.breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: "/\00a0";
+    }
 
-/* Add a color to all links inside the list */
-ul.breadcrumb li a {
-  color: #0275d8;
-  text-decoration: none;
-}
+    /* Add a color to all links inside the list */
+    ul.breadcrumb li a {
+        color: #0275d8;
+        text-decoration: none;
+    }
 
-/* Add a color on mouse-over */
-ul.breadcrumb li a:hover {
-  color: #01447e;
-  text-decoration: underline;
-}    
+    /* Add a color on mouse-over */
+    ul.breadcrumb li a:hover {
+        color: #01447e;
+        text-decoration: underline;
+    }    
+
+    .learn-more {
+        padding: 10px 0px;
+    }
+
 </style>
+
+<svelte:head>
+  <!-- Material Typography -->
+	<link rel="stylesheet" href="https://unpkg.com/@material/typography@13.0.0/dist/mdc.typography.css" />
+	
+	<!-- SMUI -->
+	<link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
+</svelte:head>

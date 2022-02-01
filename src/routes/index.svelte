@@ -1,6 +1,7 @@
 <script lang="ts">
     import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
+    import Banner, { Label } from '@smui/banner';
 
     import Menu, { MenuComponentDev } from '@smui/menu';
     import List, { Item, Text } from '@smui/list';
@@ -78,13 +79,17 @@
         </Row>
       </TopAppBar>
       <div class="flexor-content">
-		{#if howToVisible}
-			<div in:fly="{{ y: 200, duration: 750 }}" out:fade >
-				<HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
-			</div>
-		{:else}
-			<div>Loading...</div>
-		{/if}
+        {#if howToVisible}
+          <div in:fly="{{ y: 200, duration: 750 }}" out:fade >
+            <HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
+          </div>
+        {:else}
+          <Banner open fixed mobileStacked content$style="max-width: max-content;">
+            <Label slot="label">
+              Loading...
+            </Label>
+          </Banner>		
+        {/if}
       </div>
     </div>
   </div>
