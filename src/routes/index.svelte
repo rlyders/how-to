@@ -3,7 +3,7 @@
     import IconButton from '@smui/icon-button';
 
     import Menu, { MenuComponentDev } from '@smui/menu';
-    import List, { Item, Separator, Text } from '@smui/list';
+    import List, { Item, Text } from '@smui/list';
   
     import customerFeedbackHowToData from '$lib/data/how-tos/customer-feedback.yaml';
     import turnOnLightsHowToData from '$lib/data/how-tos/turn-on-lights.yaml';
@@ -19,8 +19,7 @@
     let dense = false;
     let secondaryColor = false;
 
-    let active = false;  
-	let currentHowToIdx = 0;
+	  let currentHowToIdx = 0;
     let startingStepKey = 'which';
 	let howToVisible = true;
 
