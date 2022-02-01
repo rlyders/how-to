@@ -204,18 +204,6 @@
         content: "/\00a0";
     }
 
-    /* Add a color to all links inside the list */
-    ul.breadcrumb li a {
-        color: #0275d8;
-        text-decoration: none;
-    }
-
-    /* Add a color on mouse-over */
-    ul.breadcrumb li a:hover {
-        color: #01447e;
-        text-decoration: underline;
-    }    
-
     .learn-more {
         padding: 10px 0px;
     }

@@ -6212,7 +6212,7 @@ var init_modules = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/HowTo-ceddf86a.js
+// .svelte-kit/output/server/chunks/HowTo-72693ae6.js
 function applyPassive$1(globalObj) {
   if (globalObj === void 0) {
     globalObj = window;
@@ -6606,8 +6606,8 @@ function isValidHttpUrl(possibleUrlStr) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 var MDCFoundation, events, ponyfill, cssClasses$2, strings, numbers, supportsCssVariables_, ACTIVATION_EVENT_TYPES, POINTER_DEACTIVATION_EVENT_TYPES, activatedTargets, MDCRippleFoundation, subscriber_queue2, oldModifierRegex, newModifierRegex, Div$1, Object_1$1, internals, ClassAdder, defaults, A$1, Button$1, H3$1, Li$1, Nav$1, Span$1, Ul$1, A2, Button, Div, H3, Li, Nav, Span, Ul, applyPassive, matches, CommonLabel, ContextFragment, Label, Text, Card, Content, Actions$1, Actions, Object_1, Button_1, UserChoice, cssClasses$1, SegmentedButton, booleans, attributes, cssClasses, emptyClientRect, Segment$1, Segment, css3, HowTo;
-var init_HowTo_ceddf86a = __esm({
-  ".svelte-kit/output/server/chunks/HowTo-ceddf86a.js"() {
+var init_HowTo_72693ae6 = __esm({
+  ".svelte-kit/output/server/chunks/HowTo-72693ae6.js"() {
     init_index_7ae3283d();
     init_modules();
     MDCFoundation = function() {
@@ -8052,7 +8052,7 @@ var init_HowTo_ceddf86a = __esm({
     });
     Segment = Segment$1;
     css3 = {
-      code: 'ul.breadcrumb.svelte-w31tpr.svelte-w31tpr.svelte-w31tpr{padding:10px 16px;list-style:none;background-color:#eee}ul.breadcrumb.svelte-w31tpr li.svelte-w31tpr.svelte-w31tpr{display:inline;font-size:18px}ul.breadcrumb.svelte-w31tpr li.svelte-w31tpr+li.svelte-w31tpr:before{padding:8px;color:black;content:"/\\00a0"}.learn-more.svelte-w31tpr.svelte-w31tpr.svelte-w31tpr{padding:10px 0px}',
+      code: 'ul.breadcrumb.svelte-1ca0y11.svelte-1ca0y11.svelte-1ca0y11{padding:10px 16px;list-style:none;background-color:#eee}ul.breadcrumb.svelte-1ca0y11 li.svelte-1ca0y11.svelte-1ca0y11{display:inline;font-size:18px}ul.breadcrumb.svelte-1ca0y11 li.svelte-1ca0y11+li.svelte-1ca0y11:before{padding:8px;color:black;content:"/\\00a0"}.learn-more.svelte-1ca0y11.svelte-1ca0y11.svelte-1ca0y11{padding:10px 0px}',
       map: null
     };
     HowTo = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -8078,8 +8078,8 @@ var init_HowTo_ceddf86a = __esm({
         $$settled = true;
         currentUserChoice = userChoices[currentUserChoiceIdx];
         currentHowToStep = currentUserChoice && currentUserChoice.stepKey ? howToData[currentUserChoice.stepKey] : void 0;
-        $$rendered = `${currentHowToStep ? `<ul class="${"breadcrumb svelte-w31tpr"}">${each(userChoices, (userChoice, userChoiceIdx) => {
-          return `${userChoiceIdx <= currentUserChoiceIdx ? `<li class="${"svelte-w31tpr"}">${userChoiceIdx < currentUserChoiceIdx ? `${validate_component(Button_1, "Button").$$render($$result, {}, {}, {
+        $$rendered = `${currentHowToStep ? `<ul class="${"breadcrumb svelte-1ca0y11"}">${each(userChoices, (userChoice, userChoiceIdx) => {
+          return `${userChoiceIdx <= currentUserChoiceIdx ? `<li class="${"svelte-1ca0y11"}">${userChoiceIdx < currentUserChoiceIdx ? `${validate_component(Button_1, "Button").$$render($$result, {}, {}, {
             default: () => {
               return `${escape(userChoice.selectedChoiceKey)}`;
             }
@@ -8123,7 +8123,7 @@ var init_HowTo_ceddf86a = __esm({
                     })}</div></div>` : ``}`;
                   }
                 })}</div></div>
-                    ${currentHowToStep.learnMore ? `<div class="${"learn-more svelte-w31tpr"}">${validate_component(Button_1, "Button").$$render($$result, { text: true, class: "primary-text" }, {}, {
+                    ${currentHowToStep.learnMore ? `<div class="${"learn-more svelte-1ca0y11"}">${validate_component(Button_1, "Button").$$render($$result, { text: true, class: "primary-text" }, {}, {
                   default: () => {
                     return `Learn More`;
                   }
@@ -8167,7 +8167,7 @@ var cssClasses$12, numbers2, strings$1, MDCTopAppBarBaseFoundation, INITIAL_VALU
 var init_index_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/index.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_ceddf86a();
+    init_HowTo_72693ae6();
     init_modules();
     cssClasses$12 = {
       FIXED_CLASS: "mdc-top-app-bar--fixed",
@@ -9805,9 +9805,9 @@ var entry3, js3, css5;
 var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     init_index_svelte();
-    entry3 = "pages/index.svelte-3b66eee5.js";
-    js3 = ["pages/index.svelte-3b66eee5.js", "chunks/vendor-43aaedd4.js", "pages/HowTo.svelte-579d0da2.js"];
-    css5 = ["assets/pages/index.svelte-7a595cb6.css", "assets/pages/HowTo.svelte-28ecda8d.css"];
+    entry3 = "pages/index.svelte-50fd3f4e.js";
+    js3 = ["pages/index.svelte-50fd3f4e.js", "chunks/vendor-43aaedd4.js", "pages/HowTo.svelte-376921e0.js"];
+    css5 = ["assets/pages/index.svelte-7a595cb6.css", "assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
 
@@ -9819,7 +9819,7 @@ __export(HowTo_svelte_exports, {
 var init_HowTo_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/HowTo.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_ceddf86a();
+    init_HowTo_72693ae6();
     init_modules();
   }
 });
@@ -9836,9 +9836,9 @@ var entry4, js4, css6;
 var init__4 = __esm({
   ".svelte-kit/output/server/nodes/3.js"() {
     init_HowTo_svelte();
-    entry4 = "pages/HowTo.svelte-579d0da2.js";
-    js4 = ["pages/HowTo.svelte-579d0da2.js", "chunks/vendor-43aaedd4.js"];
-    css6 = ["assets/pages/HowTo.svelte-28ecda8d.css"];
+    entry4 = "pages/HowTo.svelte-376921e0.js";
+    js4 = ["pages/HowTo.svelte-376921e0.js", "chunks/vendor-43aaedd4.js"];
+    css6 = ["assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
 
@@ -11652,7 +11652,7 @@ var manifest = {
   assets: new Set([".nojekyll", "favicon.png", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".png": "image/png", ".css": "text/css" },
-    entry: { "file": "start-5828df3d.js", "js": ["start-5828df3d.js", "chunks/vendor-43aaedd4.js"], "css": [] },
+    entry: { "file": "start-9cc15699.js", "js": ["start-9cc15699.js", "chunks/vendor-43aaedd4.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
