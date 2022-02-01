@@ -23,34 +23,39 @@
     let htmlContent = '';
     let visibleCard = true;
     let transitionMultiplier = 1;
+    let disabled = false;
 
     const handleClickChoice = (userChoice, choiceKey) => {
-        selected = choiceKey;
-        if (choiceKey !== userChoice.selectedChoiceKey) {
-            userChoices.length = currentUserChoiceIdx+1;
-            userChoice.selectedChoiceKey=choiceKey;
-            userChoice.selectedChoiceValue=howToData[userChoice.stepKey].choices[choiceKey];
+        if (!disabled) {
+            disabled = true;
+            selected = choiceKey;
+            if (choiceKey !== userChoice.selectedChoiceKey) {
+                userChoices.length = currentUserChoiceIdx+1;
+                userChoice.selectedChoiceKey=choiceKey;
+                userChoice.selectedChoiceValue=howToData[userChoice.stepKey].choices[choiceKey];
 
-            if (currentUserChoiceIdx+1 >= userChoices.length) {
-                let newUserChoice;
-                if (howToData.hasOwnProperty(userChoice.selectedChoiceValue)) {
-                    newUserChoice = new UserChoice({
-                        path: `${currentUserChoice.path}/${userChoice.selectedChoiceValue}`, 
-                        stepKey: userChoice.selectedChoiceValue
-                    });
+                if (currentUserChoiceIdx+1 >= userChoices.length) {
+                    let newUserChoice;
+                    if (howToData.hasOwnProperty(userChoice.selectedChoiceValue)) {
+                        newUserChoice = new UserChoice({
+                            path: `${currentUserChoice.path}/${userChoice.selectedChoiceValue}`, 
+                            stepKey: userChoice.selectedChoiceValue
+                        });
+                    } else {
+                        newUserChoice = new UserChoice({
+                            url: userChoice.selectedChoiceValue
+                        });
+                    }
+                    userChoices = [...userChoices, newUserChoice];
                 } else {
-                    newUserChoice = new UserChoice({
-                        url: userChoice.selectedChoiceValue
-                    });
+                    userChoices = userChoices;
                 }
-                userChoices = [...userChoices, newUserChoice];
-            } else {
-                userChoices = userChoices;
             }
+            transitionCard(false, () => {
+                currentUserChoiceIdx++;
+                disabled = false;
+            });
         }
-        transitionCard(false, () => {
-            currentUserChoiceIdx++;
-        });
     }
 
     function transitionCard(toRight: boolean, callback: Function) {
