@@ -21,10 +21,6 @@ const config = {
 		// 	fallback: null,
 		// 	precompress: false
 		// }),
-
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-
 		vite: {
 			plugins: [yaml()]
 		}
