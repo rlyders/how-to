@@ -3886,13 +3886,13 @@ var init_install_fetch = __esm({
         }
         function convertReadableWritablePair(pair, context) {
           assertDictionary(pair, context);
-          const readable2 = pair === null || pair === void 0 ? void 0 : pair.readable;
-          assertRequiredField(readable2, "readable", "ReadableWritablePair");
-          assertReadableStream(readable2, `${context} has member 'readable' that`);
+          const readable3 = pair === null || pair === void 0 ? void 0 : pair.readable;
+          assertRequiredField(readable3, "readable", "ReadableWritablePair");
+          assertReadableStream(readable3, `${context} has member 'readable' that`);
           const writable3 = pair === null || pair === void 0 ? void 0 : pair.writable;
           assertRequiredField(writable3, "writable", "ReadableWritablePair");
           assertWritableStream(writable3, `${context} has member 'writable' that`);
-          return { readable: readable2, writable: writable3 };
+          return { readable: readable3, writable: writable3 };
         }
         class ReadableStream2 {
           constructor(rawUnderlyingSource = {}, rawStrategy = {}) {
@@ -4485,18 +4485,18 @@ var init_install_fetch = __esm({
           return promiseResolvedWith(void 0);
         }
         function TransformStreamDefaultSinkCloseAlgorithm(stream) {
-          const readable2 = stream._readable;
+          const readable3 = stream._readable;
           const controller = stream._transformStreamController;
           const flushPromise = controller._flushAlgorithm();
           TransformStreamDefaultControllerClearAlgorithms(controller);
           return transformPromiseWith(flushPromise, () => {
-            if (readable2._state === "errored") {
-              throw readable2._storedError;
+            if (readable3._state === "errored") {
+              throw readable3._storedError;
             }
-            ReadableStreamDefaultControllerClose(readable2._readableStreamController);
+            ReadableStreamDefaultControllerClose(readable3._readableStreamController);
           }, (r2) => {
             TransformStreamError(stream, r2);
-            throw readable2._storedError;
+            throw readable3._storedError;
           });
         }
         function TransformStreamDefaultSourcePullAlgorithm(stream) {
@@ -5693,8 +5693,8 @@ var entry, js, css;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "layout.svelte-01da968c.js";
-    js = ["layout.svelte-01da968c.js", "chunks/vendor-43aaedd4.js"];
+    entry = "layout.svelte-ce7f7267.js";
+    js = ["layout.svelte-ce7f7267.js", "chunks/vendor-920afe4a.js"];
     css = [];
   }
 });
@@ -5743,8 +5743,8 @@ var entry2, js2, css2;
 var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     init_error_svelte();
-    entry2 = "error.svelte-7396ca8b.js";
-    js2 = ["error.svelte-7396ca8b.js", "chunks/vendor-43aaedd4.js"];
+    entry2 = "error.svelte-b466afe7.js";
+    js2 = ["error.svelte-b466afe7.js", "chunks/vendor-920afe4a.js"];
     css2 = [];
   }
 });
@@ -6212,7 +6212,7 @@ var init_modules = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/HowTo-72693ae6.js
+// .svelte-kit/output/server/chunks/HowTo-767635ae.js
 function applyPassive$1(globalObj) {
   if (globalObj === void 0) {
     globalObj = window;
@@ -6311,7 +6311,7 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
   }
   return { x: normalizedX, y: normalizedY };
 }
-function readable(value, start) {
+function readable2(value, start) {
   return {
     subscribe: writable2(value, start).subscribe
   };
@@ -6606,8 +6606,8 @@ function isValidHttpUrl(possibleUrlStr) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 var MDCFoundation, events, ponyfill, cssClasses$2, strings, numbers, supportsCssVariables_, ACTIVATION_EVENT_TYPES, POINTER_DEACTIVATION_EVENT_TYPES, activatedTargets, MDCRippleFoundation, subscriber_queue2, oldModifierRegex, newModifierRegex, Div$1, Object_1$1, internals, ClassAdder, defaults, A$1, Button$1, H3$1, Li$1, Nav$1, Span$1, Ul$1, A2, Button, Div, H3, Li, Nav, Span, Ul, applyPassive, matches, CommonLabel, ContextFragment, Label, Text, Card, Content, Actions$1, Actions, Object_1, Button_1, UserChoice, cssClasses$1, SegmentedButton, booleans, attributes, cssClasses, emptyClientRect, Segment$1, Segment, css3, HowTo;
-var init_HowTo_72693ae6 = __esm({
-  ".svelte-kit/output/server/chunks/HowTo-72693ae6.js"() {
+var init_HowTo_767635ae = __esm({
+  ".svelte-kit/output/server/chunks/HowTo-767635ae.js"() {
     init_index_7ae3283d();
     init_modules();
     MDCFoundation = function() {
@@ -8167,7 +8167,7 @@ var cssClasses$12, numbers2, strings$1, MDCTopAppBarBaseFoundation, INITIAL_VALU
 var init_index_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/index.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_72693ae6();
+    init_HowTo_767635ae();
     init_modules();
     cssClasses$12 = {
       FIXED_CLASS: "mdc-top-app-bar--fixed",
@@ -8465,7 +8465,7 @@ var init_index_svelte = __esm({
       let internalClasses = {};
       let internalStyles = {};
       let propStoreSet;
-      let propStore = readable({ variant, prominent: prominent2, dense: dense2 }, (set) => {
+      let propStore = readable2({ variant, prominent: prominent2, dense: dense2 }, (set) => {
         propStoreSet = set;
       });
       let oldScrollTarget = void 0;
@@ -9805,8 +9805,8 @@ var entry3, js3, css5;
 var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     init_index_svelte();
-    entry3 = "pages/index.svelte-50fd3f4e.js";
-    js3 = ["pages/index.svelte-50fd3f4e.js", "chunks/vendor-43aaedd4.js", "pages/HowTo.svelte-376921e0.js"];
+    entry3 = "pages/index.svelte-88812f79.js";
+    js3 = ["pages/index.svelte-88812f79.js", "chunks/vendor-920afe4a.js", "pages/HowTo.svelte-a3ca77d0.js"];
     css5 = ["assets/pages/index.svelte-7a595cb6.css", "assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
@@ -9819,7 +9819,7 @@ __export(HowTo_svelte_exports, {
 var init_HowTo_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/HowTo.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_72693ae6();
+    init_HowTo_767635ae();
     init_modules();
   }
 });
@@ -9836,8 +9836,8 @@ var entry4, js4, css6;
 var init__4 = __esm({
   ".svelte-kit/output/server/nodes/3.js"() {
     init_HowTo_svelte();
-    entry4 = "pages/HowTo.svelte-376921e0.js";
-    js4 = ["pages/HowTo.svelte-376921e0.js", "chunks/vendor-43aaedd4.js"];
+    entry4 = "pages/HowTo.svelte-a3ca77d0.js";
+    js4 = ["pages/HowTo.svelte-a3ca77d0.js", "chunks/vendor-920afe4a.js"];
     css6 = ["assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
@@ -10327,6 +10327,11 @@ function safe_not_equal2(a, b) {
 }
 Promise.resolve();
 var subscriber_queue = [];
+function readable(value, start) {
+  return {
+    subscribe: writable(value, start).subscribe
+  };
+}
 function writable(value, start = noop3) {
   let stop;
   const subscribers = new Set();
@@ -10679,6 +10684,9 @@ _style_needs_csp = new WeakMap();
 _directives = new WeakMap();
 _script_src = new WeakMap();
 _style_src = new WeakMap();
+var updated = __spreadProps(__spreadValues({}, readable(false)), {
+  check: () => false
+});
 async function render_response({
   branch,
   options,
@@ -10729,7 +10737,8 @@ async function render_response({
       stores: {
         page: writable(null),
         navigating: writable(null),
-        session
+        session,
+        updated
       },
       page: {
         url: state.prerender ? create_prerendering_url_proxy(url) : url,
@@ -10775,10 +10784,11 @@ async function render_response({
     prerender: !!state.prerender,
     needs_nonce: options.template_contains_nonce
   });
+  const target = hash(body);
   const init_app = `
 		import { start } from ${s2(options.prefix + options.manifest._.entry.file)};
 		start({
-			target: ${options.target ? `document.querySelector(${s2(options.target)})` : "document.body"},
+			target: document.querySelector('[data-hydrate="${target}"]').parentNode,
 			paths: ${s2(options.paths)},
 			session: ${try_serialize($session, (error3) => {
     throw new Error(`Failed to serialize session data: ${error3.message}`);
@@ -10842,18 +10852,19 @@ ${rendered.css.code}</style>`;
     if (page_config.router || page_config.hydrate) {
       head += Array.from(modulepreloads).map((dep) => `
 	<link rel="modulepreload" href="${options.prefix + dep}">`).join("");
-      const attributes2 = ['type="module"'];
+      const attributes2 = ['type="module"', `data-hydrate="${target}"`];
       csp.add_script(init_app);
       if (csp.script_needs_nonce) {
         attributes2.push(`nonce="${csp.nonce}"`);
       }
-      head += `<script ${attributes2.join(" ")}>${init_app}<\/script>`;
+      body += `
+		<script ${attributes2.join(" ")}>${init_app}<\/script>`;
       body += serialized_data.map(({ url: url2, body: body2, json }) => {
         let attributes22 = `type="application/json" data-type="svelte-data" data-url=${escape_html_attr(url2)}`;
         if (body2)
           attributes22 += ` data-body="${hash(body2)}"`;
         return `<script ${attributes22}>${json}<\/script>`;
-      }).join("\n\n	");
+      }).join("\n	");
     }
     if (options.service_worker) {
       csp.add_script(init_service_worker);
@@ -11036,6 +11047,12 @@ async function load_node({
           }, opts);
         }
         opts.headers = new Headers(opts.headers);
+        for (const [key2, value] of event.request.headers) {
+          if (key2 !== "authorization" && key2 !== "cookie" && key2 !== "host" && key2 !== "if-none-match" && !opts.headers.has(key2)) {
+            opts.headers.set(key2, value);
+          }
+        }
+        opts.headers.set("referer", event.url.href);
         const resolved = resolve(event.url.pathname, requested.split("?")[0]);
         let response;
         let dependency;
@@ -11632,7 +11649,6 @@ var App = class {
       root: Root,
       service_worker: null,
       router: true,
-      target: "#svelte",
       template,
       template_contains_nonce: false,
       trailing_slash: "never"
@@ -11652,7 +11668,7 @@ var manifest = {
   assets: new Set([".nojekyll", "favicon.png", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".png": "image/png", ".css": "text/css" },
-    entry: { "file": "start-9cc15699.js", "js": ["start-9cc15699.js", "chunks/vendor-43aaedd4.js"], "css": [] },
+    entry: { "file": "start-baa0637f.js", "js": ["start-baa0637f.js", "chunks/vendor-920afe4a.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
