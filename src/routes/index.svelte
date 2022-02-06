@@ -13,7 +13,7 @@
 
     let howTos = [customerFeedbackHowToData, turnOnLightsHowToData];
     let title = "How-To";
-    let appVersion = "1.0";
+    let appVersion = "1.1";
 
     let menu: MenuComponentDev;
 
@@ -35,7 +35,7 @@
 		setTimeout( () => { 
 			init(howToTitle);
 			howToVisible = true; 
-		},1000);
+		},100);
 	}
 
 	init(howTos[currentHowToIdx].title);
