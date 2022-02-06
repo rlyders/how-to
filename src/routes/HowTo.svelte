@@ -216,4 +216,10 @@
 	
 	<!-- SMUI -->
 	<link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
+
+    <!-- SMUI Styles -->
+    <link rel="stylesheet" href="./smui.css" media="(prefers-color-scheme: light)" />
+    <link rel="stylesheet" href="./smui-dark.css" media="screen and (prefers-color-scheme: dark)"
+    />
+
 </svelte:head>

@@ -79,16 +79,20 @@
         </Row>
       </TopAppBar>
       <div class="flexor-content">
-        {#if howToVisible}
-          <div in:fly="{{ y: 200, duration: 750 }}" out:fade >
-            <HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
-          </div>
-        {:else}
+        <!-- This `{#if !howToVisible}` for the <Banner> must be before *and in a separate if/then*
+          from the `{#if howToVisible}` for the <HowTo> so that the Banner doesn't move around when
+          the <HowTo> fades away -->
+        {#if !howToVisible}
           <Banner open fixed mobileStacked content$style="max-width: max-content;">
             <Label slot="label">
               Loading...
             </Label>
           </Banner>		
+        {/if}
+        {#if howToVisible}
+          <div in:fly="{{ y: 200, duration: 750 }}" out:fade >
+            <HowTo howToData={howTos[currentHowToIdx]} {startingStepKey}></HowTo>
+          </div>
         {/if}
       </div>
     </div>
