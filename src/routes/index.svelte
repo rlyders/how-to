@@ -13,7 +13,7 @@
 
     let howTos = [customerFeedbackHowToData, turnOnLightsHowToData];
     let title = "How-To";
-    let appVersion = "1.1";
+    let appVersion = "1.2";
 
     let menu: MenuComponentDev;
 
@@ -23,7 +23,7 @@
 
 	  let currentHowToIdx = 0;
     let startingStepKey = 'which';
-	let howToVisible = true;
+	  let howToVisible = true;
 
 	function init(howToTitle) {
 		currentHowToIdx = howTos.findIndex( h => h.title === howToTitle);
@@ -35,7 +35,8 @@
 		setTimeout( () => { 
 			init(howToTitle);
 			howToVisible = true; 
-		},100);
+		} // FIXME a delay >=500ms is required here otherwise the How-To guide never actually changes
+    ,500);
 	}
 
 	init(howTos[currentHowToIdx].title);
