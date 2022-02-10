@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import yaml from "@rollup/plugin-yaml";
-// import vercel from '@sveltejs/adapter-vercel';
+import vercel from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,14 +13,14 @@ const config = {
 		paths: {
 			base: process.env.NODE_ENV === 'development' ? undefined : '/how-to'
 		  },
-		//   adapter: vercel(),
-		adapter: adapter({
-			// default options are shown
-			pages: 'build',
-			assets: 'build',
-			fallback: null,
-			precompress: false
-		}),
+		  adapter: vercel(),
+		// adapter: adapter({
+		// 	// default options are shown
+		// 	pages: 'build',
+		// 	assets: 'build',
+		// 	fallback: null,
+		// 	precompress: false
+		// }),
 		vite: {
 			plugins: [yaml()]
 		}

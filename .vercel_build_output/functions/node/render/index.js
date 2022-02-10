@@ -23,27 +23,31 @@ var __spreadValues = (a, b) => {
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[Object.keys(fn)[0]])(fn = 0)), res;
+  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
 };
 var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __export = (target, all) => {
-  __markAsModule(target);
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __reExport = (target, module2, desc) => {
+var __reExport = (target, module2, copyDefault, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
     for (let key2 of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key2) && key2 !== "default")
+      if (!__hasOwnProp.call(target, key2) && (copyDefault || key2 !== "default"))
         __defProp(target, key2, { get: () => module2[key2], enumerable: !(desc = __getOwnPropDesc(module2, key2)) || desc.enumerable });
   }
   return target;
 };
-var __toModule = (module2) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
+var __toESM = (module2, isNodeMode) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
+var __toCommonJS = /* @__PURE__ */ ((cache) => {
+  return (module2, temp) => {
+    return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
+  };
+})(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
 var __accessCheck = (obj, member, msg) => {
   if (!member.has(obj))
     throw TypeError("Cannot " + msg);
@@ -155,20 +159,11 @@ async function toFormData(Body2, ct) {
   parser.end();
   return formData;
 }
-var import_node_fs, import_node_path, import_node_worker_threads, import_node_http, import_node_https, import_node_zlib, import_node_stream, import_node_util, import_node_url, import_net, s, S, f, F, LF, CR, SPACE, HYPHEN, COLON, A, Z, lower, noop, MultipartParser;
+var import_node_worker_threads, s, S, f, F, LF, CR, SPACE, HYPHEN, COLON, A, Z, lower, noop, MultipartParser;
 var init_multipart_parser = __esm({
   "node_modules/@sveltejs/kit/dist/chunks/multipart-parser.js"() {
-    import_node_fs = __toModule(require("fs"));
-    import_node_path = __toModule(require("path"));
-    import_node_worker_threads = __toModule(require("worker_threads"));
+    import_node_worker_threads = require("worker_threads");
     init_install_fetch();
-    import_node_http = __toModule(require("http"));
-    import_node_https = __toModule(require("https"));
-    import_node_zlib = __toModule(require("zlib"));
-    import_node_stream = __toModule(require("stream"));
-    import_node_util = __toModule(require("util"));
-    import_node_url = __toModule(require("url"));
-    import_net = __toModule(require("net"));
     globalThis.DOMException || (() => {
       const port = new import_node_worker_threads.MessageChannel().port1;
       const ab = new ArrayBuffer(0);
@@ -524,7 +519,7 @@ async function consumeBody(data2) {
   if (body === null) {
     return Buffer.alloc(0);
   }
-  if (!(body instanceof import_node_stream2.default)) {
+  if (!(body instanceof import_node_stream.default)) {
     return Buffer.alloc(0);
   }
   const accum = [];
@@ -600,7 +595,7 @@ function isOriginPotentiallyTrustworthy(url) {
     return true;
   }
   const hostIp = url.host.replace(/(^\[)|(]$)/g, "");
-  const hostIPVersion = (0, import_net2.isIP)(hostIp);
+  const hostIPVersion = (0, import_net.isIP)(hostIp);
   if (hostIPVersion === 4 && /^127\./.test(hostIp)) {
     return true;
   }
@@ -710,13 +705,13 @@ async function fetch2(url, options_) {
       resolve2(response2);
       return;
     }
-    const send = (parsedURL.protocol === "https:" ? import_node_https2.default : import_node_http2.default).request;
+    const send = (parsedURL.protocol === "https:" ? import_node_https.default : import_node_http.default).request;
     const { signal } = request;
     let response = null;
     const abort = () => {
       const error2 = new AbortError("The operation was aborted.");
       reject(error2);
-      if (request.body && request.body instanceof import_node_stream2.default.Readable) {
+      if (request.body && request.body instanceof import_node_stream.default.Readable) {
         request.body.destroy(error2);
       }
       if (!response || !response.body) {
@@ -802,7 +797,7 @@ async function fetch2(url, options_) {
               referrer: request.referrer,
               referrerPolicy: request.referrerPolicy
             };
-            if (response_.statusCode !== 303 && request.body && options_.body instanceof import_node_stream2.default.Readable) {
+            if (response_.statusCode !== 303 && request.body && options_.body instanceof import_node_stream.default.Readable) {
               reject(new FetchError("Cannot follow redirect with body being a readable stream", "unsupported-redirect"));
               finalize();
               return;
@@ -829,7 +824,7 @@ async function fetch2(url, options_) {
           signal.removeEventListener("abort", abortAndFinalize);
         });
       }
-      let body = (0, import_node_stream2.pipeline)(response_, new import_node_stream2.PassThrough(), reject);
+      let body = (0, import_node_stream.pipeline)(response_, new import_node_stream.PassThrough(), reject);
       if (process.version < "v12.10") {
         response_.on("aborted", abortAndFinalize);
       }
@@ -849,26 +844,26 @@ async function fetch2(url, options_) {
         return;
       }
       const zlibOptions = {
-        flush: import_node_zlib2.default.Z_SYNC_FLUSH,
-        finishFlush: import_node_zlib2.default.Z_SYNC_FLUSH
+        flush: import_node_zlib.default.Z_SYNC_FLUSH,
+        finishFlush: import_node_zlib.default.Z_SYNC_FLUSH
       };
       if (codings === "gzip" || codings === "x-gzip") {
-        body = (0, import_node_stream2.pipeline)(body, import_node_zlib2.default.createGunzip(zlibOptions), reject);
+        body = (0, import_node_stream.pipeline)(body, import_node_zlib.default.createGunzip(zlibOptions), reject);
         response = new Response2(body, responseOptions);
         resolve2(response);
         return;
       }
       if (codings === "deflate" || codings === "x-deflate") {
-        const raw = (0, import_node_stream2.pipeline)(response_, new import_node_stream2.PassThrough(), reject);
+        const raw = (0, import_node_stream.pipeline)(response_, new import_node_stream.PassThrough(), reject);
         raw.once("data", (chunk) => {
-          body = (chunk[0] & 15) === 8 ? (0, import_node_stream2.pipeline)(body, import_node_zlib2.default.createInflate(), reject) : (0, import_node_stream2.pipeline)(body, import_node_zlib2.default.createInflateRaw(), reject);
+          body = (chunk[0] & 15) === 8 ? (0, import_node_stream.pipeline)(body, import_node_zlib.default.createInflate(), reject) : (0, import_node_stream.pipeline)(body, import_node_zlib.default.createInflateRaw(), reject);
           response = new Response2(body, responseOptions);
           resolve2(response);
         });
         return;
       }
       if (codings === "br") {
-        body = (0, import_node_stream2.pipeline)(body, import_node_zlib2.default.createBrotliDecompress(), reject);
+        body = (0, import_node_stream.pipeline)(body, import_node_zlib.default.createBrotliDecompress(), reject);
         response = new Response2(body, responseOptions);
         resolve2(response);
         return;
@@ -933,16 +928,16 @@ function __fetch_polyfill() {
     }
   });
 }
-var import_node_http2, import_node_https2, import_node_zlib2, import_node_stream2, import_node_util2, import_node_url2, import_net2, commonjsGlobal, ponyfill_es2018, POOL_SIZE$1, POOL_SIZE, _parts, _type, _size, _a, _Blob, Blob, Blob$1, _lastModified, _name, _a2, _File, File, t, i, h, r, m, f2, e, x, _d, _a3, FormData, FetchBaseError, FetchError, NAME, isURLSearchParameters, isBlob, isAbortSignal, INTERNALS$2, Body, clone, getNonSpecFormDataBoundary, extractContentType, getTotalBytes, writeToStream, validateHeaderName, validateHeaderValue, Headers2, redirectStatus, isRedirect, INTERNALS$1, Response2, getSearch, ReferrerPolicy, DEFAULT_REFERRER_POLICY, INTERNALS, isRequest, Request2, getNodeRequestOptions, AbortError, supportedSchemas;
+var import_node_http, import_node_https, import_node_zlib, import_node_stream, import_node_util, import_node_url, import_net, commonjsGlobal, ponyfill_es2018, POOL_SIZE$1, POOL_SIZE, _parts, _type, _size, _a, _Blob, Blob, Blob$1, _lastModified, _name, _a2, _File, File, t, i, h, r, m, f2, e, x, _d, _a3, FormData, FetchBaseError, FetchError, NAME, isURLSearchParameters, isBlob, isAbortSignal, INTERNALS$2, Body, clone, getNonSpecFormDataBoundary, extractContentType, getTotalBytes, writeToStream, validateHeaderName, validateHeaderValue, Headers2, redirectStatus, isRedirect, INTERNALS$1, Response2, getSearch, ReferrerPolicy, DEFAULT_REFERRER_POLICY, INTERNALS, isRequest, Request2, getNodeRequestOptions, AbortError, supportedSchemas;
 var init_install_fetch = __esm({
   "node_modules/@sveltejs/kit/dist/install-fetch.js"() {
-    import_node_http2 = __toModule(require("http"));
-    import_node_https2 = __toModule(require("https"));
-    import_node_zlib2 = __toModule(require("zlib"));
-    import_node_stream2 = __toModule(require("stream"));
-    import_node_util2 = __toModule(require("util"));
-    import_node_url2 = __toModule(require("url"));
-    import_net2 = __toModule(require("net"));
+    import_node_http = __toESM(require("http"), 1);
+    import_node_https = __toESM(require("https"), 1);
+    import_node_zlib = __toESM(require("zlib"), 1);
+    import_node_stream = __toESM(require("stream"), 1);
+    import_node_util = require("util");
+    import_node_url = require("url");
+    import_net = require("net");
     commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
     ponyfill_es2018 = { exports: {} };
     (function(module2, exports) {
@@ -4840,11 +4835,11 @@ var init_install_fetch = __esm({
           ;
         else if (Buffer.isBuffer(body))
           ;
-        else if (import_node_util2.types.isAnyArrayBuffer(body)) {
+        else if (import_node_util.types.isAnyArrayBuffer(body)) {
           body = Buffer.from(body);
         } else if (ArrayBuffer.isView(body)) {
           body = Buffer.from(body.buffer, body.byteOffset, body.byteLength);
-        } else if (body instanceof import_node_stream2.default)
+        } else if (body instanceof import_node_stream.default)
           ;
         else if (body instanceof FormData) {
           body = formDataToBlob(body);
@@ -4854,9 +4849,9 @@ var init_install_fetch = __esm({
         }
         let stream = body;
         if (Buffer.isBuffer(body)) {
-          stream = import_node_stream2.default.Readable.from(body);
+          stream = import_node_stream.default.Readable.from(body);
         } else if (isBlob(body)) {
-          stream = import_node_stream2.default.Readable.from(body.stream());
+          stream = import_node_stream.default.Readable.from(body.stream());
         }
         this[INTERNALS$2] = {
           body,
@@ -4866,7 +4861,7 @@ var init_install_fetch = __esm({
           error: null
         };
         this.size = size;
-        if (body instanceof import_node_stream2.default) {
+        if (body instanceof import_node_stream.default) {
           body.on("error", (error_) => {
             const error2 = error_ instanceof FetchBaseError ? error_ : new FetchError(`Invalid response body while trying to fetch ${this.url}: ${error_.message}`, "system", error_);
             this[INTERNALS$2].error = error2;
@@ -4915,7 +4910,7 @@ var init_install_fetch = __esm({
         return consumeBody(this);
       }
     };
-    Body.prototype.buffer = (0, import_node_util2.deprecate)(Body.prototype.buffer, "Please use 'response.arrayBuffer()' instead of 'response.buffer()'", "node-fetch#buffer");
+    Body.prototype.buffer = (0, import_node_util.deprecate)(Body.prototype.buffer, "Please use 'response.arrayBuffer()' instead of 'response.buffer()'", "node-fetch#buffer");
     Object.defineProperties(Body.prototype, {
       body: { enumerable: true },
       bodyUsed: { enumerable: true },
@@ -4931,9 +4926,9 @@ var init_install_fetch = __esm({
       if (instance.bodyUsed) {
         throw new Error("cannot clone body after it is used");
       }
-      if (body instanceof import_node_stream2.default && typeof body.getBoundary !== "function") {
-        p1 = new import_node_stream2.PassThrough({ highWaterMark });
-        p2 = new import_node_stream2.PassThrough({ highWaterMark });
+      if (body instanceof import_node_stream.default && typeof body.getBoundary !== "function") {
+        p1 = new import_node_stream.PassThrough({ highWaterMark });
+        p2 = new import_node_stream.PassThrough({ highWaterMark });
         body.pipe(p1);
         body.pipe(p2);
         instance[INTERNALS$2].stream = p1;
@@ -4941,7 +4936,7 @@ var init_install_fetch = __esm({
       }
       return body;
     };
-    getNonSpecFormDataBoundary = (0, import_node_util2.deprecate)((body) => body.getBoundary(), "form-data doesn't follow the spec and requires special treatment. Use alternative package", "https://github.com/node-fetch/node-fetch/issues/1167");
+    getNonSpecFormDataBoundary = (0, import_node_util.deprecate)((body) => body.getBoundary(), "form-data doesn't follow the spec and requires special treatment. Use alternative package", "https://github.com/node-fetch/node-fetch/issues/1167");
     extractContentType = (body, request) => {
       if (body === null) {
         return null;
@@ -4955,7 +4950,7 @@ var init_install_fetch = __esm({
       if (isBlob(body)) {
         return body.type || null;
       }
-      if (Buffer.isBuffer(body) || import_node_util2.types.isAnyArrayBuffer(body) || ArrayBuffer.isView(body)) {
+      if (Buffer.isBuffer(body) || import_node_util.types.isAnyArrayBuffer(body) || ArrayBuffer.isView(body)) {
         return null;
       }
       if (body instanceof FormData) {
@@ -4964,7 +4959,7 @@ var init_install_fetch = __esm({
       if (body && typeof body.getBoundary === "function") {
         return `multipart/form-data;boundary=${getNonSpecFormDataBoundary(body)}`;
       }
-      if (body instanceof import_node_stream2.default) {
+      if (body instanceof import_node_stream.default) {
         return null;
       }
       return "text/plain;charset=UTF-8";
@@ -4992,14 +4987,14 @@ var init_install_fetch = __esm({
         body.pipe(dest);
       }
     };
-    validateHeaderName = typeof import_node_http2.default.validateHeaderName === "function" ? import_node_http2.default.validateHeaderName : (name) => {
+    validateHeaderName = typeof import_node_http.default.validateHeaderName === "function" ? import_node_http.default.validateHeaderName : (name) => {
       if (!/^[\^`\-\w!#$%&'*+.|~]+$/.test(name)) {
         const error2 = new TypeError(`Header name must be a valid HTTP token [${name}]`);
         Object.defineProperty(error2, "code", { value: "ERR_INVALID_HTTP_TOKEN" });
         throw error2;
       }
     };
-    validateHeaderValue = typeof import_node_http2.default.validateHeaderValue === "function" ? import_node_http2.default.validateHeaderValue : (name, value) => {
+    validateHeaderValue = typeof import_node_http.default.validateHeaderValue === "function" ? import_node_http.default.validateHeaderValue : (name, value) => {
       if (/[^\t\u0020-\u007E\u0080-\u00FF]/.test(value)) {
         const error2 = new TypeError(`Invalid character in header content ["${name}"]`);
         Object.defineProperty(error2, "code", { value: "ERR_INVALID_CHAR" });
@@ -5016,7 +5011,7 @@ var init_install_fetch = __esm({
           }
         } else if (init2 == null)
           ;
-        else if (typeof init2 === "object" && !import_node_util2.types.isBoxedPrimitive(init2)) {
+        else if (typeof init2 === "object" && !import_node_util.types.isBoxedPrimitive(init2)) {
           const method = init2[Symbol.iterator];
           if (method == null) {
             result.push(...Object.entries(init2));
@@ -5025,7 +5020,7 @@ var init_install_fetch = __esm({
               throw new TypeError("Header pairs must be iterable");
             }
             result = [...init2].map((pair) => {
-              if (typeof pair !== "object" || import_node_util2.types.isBoxedPrimitive(pair)) {
+              if (typeof pair !== "object" || import_node_util.types.isBoxedPrimitive(pair)) {
                 throw new TypeError("Each header pair must be an iterable object");
               }
               return [...pair];
@@ -5130,7 +5125,7 @@ var init_install_fetch = __esm({
       result[property] = { enumerable: true };
       return result;
     }, {}));
-    redirectStatus = new Set([301, 302, 303, 307, 308]);
+    redirectStatus = /* @__PURE__ */ new Set([301, 302, 303, 307, 308]);
     isRedirect = (code) => {
       return redirectStatus.has(code);
     };
@@ -5231,7 +5226,7 @@ var init_install_fetch = __esm({
       const hash2 = parsedURL.hash || (parsedURL.href[lastOffset] === "#" ? "#" : "");
       return parsedURL.href[lastOffset - hash2.length] === "?" ? "?" : "";
     };
-    ReferrerPolicy = new Set([
+    ReferrerPolicy = /* @__PURE__ */ new Set([
       "",
       "no-referrer",
       "no-referrer-when-downgrade",
@@ -5311,7 +5306,7 @@ var init_install_fetch = __esm({
         return this[INTERNALS].method;
       }
       get url() {
-        return (0, import_node_url2.format)(this[INTERNALS].parsedURL);
+        return (0, import_node_url.format)(this[INTERNALS].parsedURL);
       }
       get headers() {
         return this[INTERNALS].headers;
@@ -5418,7 +5413,7 @@ var init_install_fetch = __esm({
         super(message, type);
       }
     };
-    supportedSchemas = new Set(["data:", "http:", "https:"]);
+    supportedSchemas = /* @__PURE__ */ new Set(["data:", "http:", "https:"]);
   }
 });
 
@@ -5429,7 +5424,7 @@ function run(fn) {
   return fn();
 }
 function blank_object() {
-  return Object.create(null);
+  return /* @__PURE__ */ Object.create(null);
 }
 function run_all(fns) {
   fns.forEach(run);
@@ -5596,9 +5591,9 @@ function create_ssr_component(fn) {
     return html;
   }
   return {
-    render: (props = {}, { $$slots = {}, context = new Map() } = {}) => {
+    render: (props = {}, { $$slots = {}, context = /* @__PURE__ */ new Map() } = {}) => {
       on_destroy = [];
-      const result = { title: "", head: "", css: new Set() };
+      const result = { title: "", head: "", css: /* @__PURE__ */ new Set() };
       const html = $$render(result, props, {}, $$slots, context);
       run_all(on_destroy);
       return {
@@ -5626,7 +5621,7 @@ var init_index_7ae3283d = __esm({
   ".svelte-kit/output/server/chunks/index-7ae3283d.js"() {
     Promise.resolve();
     globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
-    boolean_attributes = new Set([
+    boolean_attributes = /* @__PURE__ */ new Set([
       "allowfullscreen",
       "allowpaymentrequest",
       "async",
@@ -5693,8 +5688,8 @@ var entry, js, css;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "layout.svelte-ce7f7267.js";
-    js = ["layout.svelte-ce7f7267.js", "chunks/vendor-920afe4a.js"];
+    entry = "layout.svelte-ce0a462f.js";
+    js = ["layout.svelte-ce0a462f.js", "chunks/vendor-1bdd7840.js"];
     css = [];
   }
 });
@@ -5743,8 +5738,8 @@ var entry2, js2, css2;
 var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     init_error_svelte();
-    entry2 = "error.svelte-b466afe7.js";
-    js2 = ["error.svelte-b466afe7.js", "chunks/vendor-920afe4a.js"];
+    entry2 = "error.svelte-ef9b2014.js";
+    js2 = ["error.svelte-ef9b2014.js", "chunks/vendor-1bdd7840.js"];
     css2 = [];
   }
 });
@@ -6182,7 +6177,7 @@ var require_tslib = __commonJS({
 var import_tslib, __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __createBinding, __values, __read, __spread, __spreadArrays, __spreadArray, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet;
 var init_modules = __esm({
   "node_modules/tslib/modules/index.js"() {
-    import_tslib = __toModule(require_tslib());
+    import_tslib = __toESM(require_tslib(), 1);
     ({
       __extends,
       __assign,
@@ -6212,7 +6207,7 @@ var init_modules = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/HowTo-767635ae.js
+// .svelte-kit/output/server/chunks/HowTo-b52373e5.js
 function applyPassive$1(globalObj) {
   if (globalObj === void 0) {
     globalObj = window;
@@ -6318,7 +6313,7 @@ function readable2(value, start) {
 }
 function writable2(value, start = noop2) {
   let stop;
-  const subscribers = new Set();
+  const subscribers = /* @__PURE__ */ new Set();
   function set(new_value) {
     if (safe_not_equal(value, new_value)) {
       value = new_value;
@@ -6606,8 +6601,8 @@ function isValidHttpUrl(possibleUrlStr) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 var MDCFoundation, events, ponyfill, cssClasses$2, strings, numbers, supportsCssVariables_, ACTIVATION_EVENT_TYPES, POINTER_DEACTIVATION_EVENT_TYPES, activatedTargets, MDCRippleFoundation, subscriber_queue2, oldModifierRegex, newModifierRegex, Div$1, Object_1$1, internals, ClassAdder, defaults, A$1, Button$1, H3$1, Li$1, Nav$1, Span$1, Ul$1, A2, Button, Div, H3, Li, Nav, Span, Ul, applyPassive, matches, CommonLabel, ContextFragment, Label, Text, Card, Content, Actions$1, Actions, Object_1, Button_1, UserChoice, cssClasses$1, SegmentedButton, booleans, attributes, cssClasses, emptyClientRect, Segment$1, Segment, css3, HowTo;
-var init_HowTo_767635ae = __esm({
-  ".svelte-kit/output/server/chunks/HowTo-767635ae.js"() {
+var init_HowTo_b52373e5 = __esm({
+  ".svelte-kit/output/server/chunks/HowTo-b52373e5.js"() {
     init_index_7ae3283d();
     init_modules();
     MDCFoundation = function() {
@@ -8137,7 +8132,7 @@ var init_HowTo_767635ae = __esm({
 
 
 
-${$$result.head += `<link rel="${"stylesheet"}" href="${"https://unpkg.com/@material/typography@13.0.0/dist/mdc.typography.css"}" data-svelte="svelte-20y9y9"><link rel="${"stylesheet"}" href="${"https://unpkg.com/svelte-material-ui/bare.css"}" data-svelte="svelte-20y9y9">`, ""}`;
+${$$result.head += `<link rel="${"stylesheet"}" href="${"https://unpkg.com/@material/typography@13.0.0/dist/mdc.typography.css"}" data-svelte="svelte-1gcyomm"><link rel="${"stylesheet"}" href="${"https://unpkg.com/svelte-material-ui/bare.css"}" data-svelte="svelte-1gcyomm"><link rel="${"stylesheet"}" href="${"./smui.css"}" media="${"(prefers-color-scheme: light)"}" data-svelte="svelte-1gcyomm"><link rel="${"stylesheet"}" href="${"./smui-dark.css"}" media="${"screen and (prefers-color-scheme: dark)"}" data-svelte="svelte-1gcyomm">`, ""}`;
       } while (!$$settled);
       return $$rendered;
     });
@@ -8163,11 +8158,11 @@ function dispatch(element, eventType, detail, eventInit = { bubbles: true }, dup
     return event;
   }
 }
-var cssClasses$12, numbers2, strings$1, MDCTopAppBarBaseFoundation, INITIAL_VALUE, MDCTopAppBarFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, TopAppBar, Row, Section$1, Title, Section, cssClasses2, strings2, MDCIconButtonToggleFoundation, Object_1$12, IconButton, MenuSurface, Menu, List, Object_12, counter, Item$1, Graphic$1, Item, Graphic, data$1, data, css4, title, prominent, dense, Routes;
+var cssClasses$12, numbers2, strings$1, MDCTopAppBarBaseFoundation, INITIAL_VALUE, MDCTopAppBarFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, TopAppBar, Row, Section$1, Title, Section, cssClasses2, strings2, MDCIconButtonToggleFoundation, Object_1$12, IconButton, MenuSurface, Menu, List, Object_12, counter, Item$1, Graphic$1, Item, Graphic, data$1, data, version, css4, title, prominent, dense, Routes;
 var init_index_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/index.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_767635ae();
+    init_HowTo_b52373e5();
     init_modules();
     cssClasses$12 = {
       FIXED_CLASS: "mdc-top-app-bar--fixed",
@@ -9678,6 +9673,7 @@ var init_index_svelte = __esm({
     data.openDoor;
     data.cantSee;
     data.tooDark;
+    version = "1.2.2";
     css4 = {
       code: ".top-app-bar-container.svelte-18frgr5{width:100%;height:600px;border:1px solid\n        var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));margin:0 18px 18px 0;background-color:var(--mdc-theme-background, #fff);overflow:auto;display:inline-block}@media(max-width: 480px){.top-app-bar-container.svelte-18frgr5{margin-right:0}}.flexy.svelte-18frgr5{display:flex;flex-wrap:wrap}.flexor.svelte-18frgr5{display:inline-flex;flex-direction:column}.flexor-content.svelte-18frgr5{flex-basis:0;height:0;flex-grow:1;overflow:auto}",
       map: null
@@ -9742,10 +9738,9 @@ var init_index_svelte = __esm({
                       }
                     })}
           
-
             ${validate_component(Title, "Title").$$render($$result, {}, {}, {
                       default: () => {
-                        return `${escape(title)}: ${escape(howTos[currentHowToIdx].title)}`;
+                        return `${escape(title)} <span style="${"font-size:80%"}">v${escape(version)}</span>: ${escape(howTos[currentHowToIdx].title)}`;
                       }
                     })}`;
                   }
@@ -9782,7 +9777,9 @@ var init_index_svelte = __esm({
             })}`;
           }
         })}
-      <div class="${"flexor-content svelte-18frgr5"}">${`<div>${validate_component(HowTo, "HowTo").$$render($$result, {
+      <div class="${"flexor-content svelte-18frgr5"}">
+        ${``}
+        ${`<div>${validate_component(HowTo, "HowTo").$$render($$result, {
           howToData: howTos[currentHowToIdx],
           startingStepKey
         }, {}, {})}</div>`}</div></div>
@@ -9805,8 +9802,8 @@ var entry3, js3, css5;
 var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     init_index_svelte();
-    entry3 = "pages/index.svelte-88812f79.js";
-    js3 = ["pages/index.svelte-88812f79.js", "chunks/vendor-920afe4a.js", "pages/HowTo.svelte-a3ca77d0.js"];
+    entry3 = "pages/index.svelte-d8ee95ae.js";
+    js3 = ["pages/index.svelte-d8ee95ae.js", "chunks/vendor-1bdd7840.js", "pages/HowTo.svelte-20ffd1ca.js"];
     css5 = ["assets/pages/index.svelte-7a595cb6.css", "assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
@@ -9819,7 +9816,7 @@ __export(HowTo_svelte_exports, {
 var init_HowTo_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/HowTo.svelte.js"() {
     init_index_7ae3283d();
-    init_HowTo_767635ae();
+    init_HowTo_b52373e5();
     init_modules();
   }
 });
@@ -9836,14 +9833,15 @@ var entry4, js4, css6;
 var init__4 = __esm({
   ".svelte-kit/output/server/nodes/3.js"() {
     init_HowTo_svelte();
-    entry4 = "pages/HowTo.svelte-a3ca77d0.js";
-    js4 = ["pages/HowTo.svelte-a3ca77d0.js", "chunks/vendor-920afe4a.js"];
+    entry4 = "pages/HowTo.svelte-20ffd1ca.js";
+    js4 = ["pages/HowTo.svelte-20ffd1ca.js", "chunks/vendor-1bdd7840.js"];
     css6 = ["assets/pages/HowTo.svelte-0c36df5a.css"];
   }
 });
 
 // .svelte-kit/vercel-tmp/entry.js
-__export(exports, {
+var entry_exports = {};
+__export(entry_exports, {
   default: () => entry_default
 });
 
@@ -9852,7 +9850,7 @@ init_install_fetch();
 __fetch_polyfill();
 
 // node_modules/@sveltejs/kit/dist/node.js
-var import_stream = __toModule(require("stream"));
+var import_stream = require("stream");
 function get_raw_body(req) {
   return new Promise((fulfil, reject) => {
     const h2 = req.headers;
@@ -9997,12 +9995,12 @@ function to_headers(object) {
       const value = object[key2];
       if (!value)
         continue;
-      if (typeof value === "string") {
-        headers.set(key2, value);
-      } else {
+      if (Array.isArray(value)) {
         value.forEach((value2) => {
           headers.append(key2, value2);
         });
+      } else {
+        headers.set(key2, value);
       }
     }
   }
@@ -10020,11 +10018,31 @@ function hash(value) {
   }
   return (hash2 >>> 0).toString(36);
 }
+function lowercase_keys(obj) {
+  const clone2 = {};
+  for (const key2 in obj) {
+    clone2[key2.toLowerCase()] = obj[key2];
+  }
+  return clone2;
+}
 function decode_params(params) {
   for (const key2 in params) {
     params[key2] = params[key2].replace(/%23/g, "#").replace(/%3[Bb]/g, ";").replace(/%2[Cc]/g, ",").replace(/%2[Ff]/g, "/").replace(/%3[Ff]/g, "?").replace(/%3[Aa]/g, ":").replace(/%40/g, "@").replace(/%26/g, "&").replace(/%3[Dd]/g, "=").replace(/%2[Bb]/g, "+").replace(/%24/g, "$");
   }
   return params;
+}
+function is_pojo(body) {
+  if (typeof body !== "object")
+    return false;
+  if (body) {
+    if (body instanceof Uint8Array)
+      return false;
+    if (body._readableState && body._writableState && body._events)
+      return false;
+    if (typeof ReadableStream !== "undefined" && body instanceof ReadableStream)
+      return false;
+  }
+  return true;
 }
 function error(body) {
   return new Response(body, {
@@ -10034,7 +10052,7 @@ function error(body) {
 function is_string(s22) {
   return typeof s22 === "string" || s22 instanceof String;
 }
-var text_types = new Set([
+var text_types = /* @__PURE__ */ new Set([
   "application/xml",
   "application/json",
   "application/x-www-form-urlencoded",
@@ -10046,13 +10064,11 @@ function is_text(content_type) {
   const type = content_type.split(";")[0].toLowerCase();
   return type.startsWith("text/") || type.endsWith("+xml") || text_types.has(type);
 }
-async function render_endpoint(event, route, match) {
-  const mod = await route.load();
+async function render_endpoint(event, mod) {
   const handler = mod[event.request.method.toLowerCase().replace("delete", "del")];
   if (!handler) {
     return;
   }
-  event.params = route.params ? decode_params(route.params(match)) : {};
   const response = await handler(event);
   const preface = `Invalid response from route ${event.url.pathname}`;
   if (typeof response !== "object") {
@@ -10085,19 +10101,6 @@ async function render_endpoint(event, route, match) {
     headers
   });
 }
-function is_pojo(body) {
-  if (typeof body !== "object")
-    return false;
-  if (body) {
-    if (body instanceof Uint8Array)
-      return false;
-    if (body._readableState && body._writableState && body._events)
-      return false;
-    if (typeof ReadableStream !== "undefined" && body instanceof ReadableStream)
-      return false;
-  }
-  return true;
-}
 var chars$1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$";
 var unsafeChars = /[<>\b\f\n\r\t\0\u2028\u2029]/g;
 var reserved = /^(?:do|if|in|for|int|let|new|try|var|byte|case|char|else|enum|goto|long|this|void|with|await|break|catch|class|const|final|float|short|super|throw|while|yield|delete|double|export|import|native|return|switch|throws|typeof|boolean|default|extends|finally|package|private|abstract|continue|debugger|function|volatile|interface|protected|transient|implements|instanceof|synchronized)$/;
@@ -10117,7 +10120,7 @@ var escaped2 = {
 };
 var objectProtoOwnPropertyNames = Object.getOwnPropertyNames(Object.prototype).sort().join("\0");
 function devalue(value) {
-  var counts = new Map();
+  var counts = /* @__PURE__ */ new Map();
   function walk(thing) {
     if (typeof thing === "function") {
       throw new Error("Cannot stringify a function");
@@ -10158,7 +10161,7 @@ function devalue(value) {
     }
   }
   walk(value);
-  var names = new Map();
+  var names = /* @__PURE__ */ new Map();
   Array.from(counts).filter(function(entry5) {
     return entry5[1] > 1;
   }).sort(function(a, b) {
@@ -10334,7 +10337,7 @@ function readable(value, start) {
 }
 function writable(value, start = noop3) {
   let stop;
-  const subscribers = new Set();
+  const subscribers = /* @__PURE__ */ new Set();
   function set(new_value) {
     if (safe_not_equal2(value, new_value)) {
       value = new_value;
@@ -10376,7 +10379,14 @@ function writable(value, start = noop3) {
 function coalesce_to_error(err) {
   return err instanceof Error || err && err.name && err.message ? err : new Error(JSON.stringify(err));
 }
-var escape_json_string_in_html_dict = {
+var escape_json_in_html_dict = {
+  "&": "\\u0026",
+  ">": "\\u003e",
+  "<": "\\u003c",
+  "\u2028": "\\u2028",
+  "\u2029": "\\u2029"
+};
+var escape_json_value_in_html_dict = {
   '"': '\\"',
   "<": "\\u003C",
   ">": "\\u003E",
@@ -10391,16 +10401,11 @@ var escape_json_string_in_html_dict = {
   "\u2028": "\\u2028",
   "\u2029": "\\u2029"
 };
-function escape_json_string_in_html(str) {
-  return escape2(str, escape_json_string_in_html_dict, (code) => `\\u${code.toString(16).toUpperCase()}`);
+function escape_json_in_html(str) {
+  return str.replace(/[&><\u2028\u2029]/g, (match) => escape_json_in_html_dict[match]);
 }
-var escape_html_attr_dict = {
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;"
-};
-function escape_html_attr(str) {
-  return '"' + escape2(str, escape_html_attr_dict, (code) => `&#${code};`) + '"';
+function escape_json_value_in_html(str) {
+  return escape2(str, escape_json_value_in_html_dict, (code) => `\\u${code.toString(16).toUpperCase()}`);
 }
 function escape2(str, dict, unicode_encoder) {
   let result = "";
@@ -10421,6 +10426,14 @@ function escape2(str, dict, unicode_encoder) {
     }
   }
   return result;
+}
+var escape_html_attr_dict = {
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;"
+};
+function escape_html_attr(str) {
+  return '"' + escape2(str, escape_html_attr_dict, (code) => `&#${code};`) + '"';
 }
 var s2 = JSON.stringify;
 function create_prerendering_url_proxy(url) {
@@ -10577,7 +10590,7 @@ if (typeof crypto !== "undefined") {
     };
   });
 }
-var quoted = new Set([
+var quoted = /* @__PURE__ */ new Set([
   "self",
   "unsafe-eval",
   "unsafe-hashes",
@@ -10677,13 +10690,13 @@ var Csp = class {
     return `<meta http-equiv="content-security-policy" content=${content}>`;
   }
 };
-_use_hashes = new WeakMap();
-_dev = new WeakMap();
-_script_needs_csp = new WeakMap();
-_style_needs_csp = new WeakMap();
-_directives = new WeakMap();
-_script_src = new WeakMap();
-_style_src = new WeakMap();
+_use_hashes = /* @__PURE__ */ new WeakMap();
+_dev = /* @__PURE__ */ new WeakMap();
+_script_needs_csp = /* @__PURE__ */ new WeakMap();
+_style_needs_csp = /* @__PURE__ */ new WeakMap();
+_directives = /* @__PURE__ */ new WeakMap();
+_script_src = /* @__PURE__ */ new WeakMap();
+_style_src = /* @__PURE__ */ new WeakMap();
 var updated = __spreadProps(__spreadValues({}, readable(false)), {
   check: () => false
 });
@@ -10710,8 +10723,9 @@ async function render_response({
   }
   const stylesheets = new Set(options.manifest._.entry.css);
   const modulepreloads = new Set(options.manifest._.entry.js);
-  const styles = new Map();
+  const styles = /* @__PURE__ */ new Map();
   const serialized_data = [];
+  let shadow_props;
   let rendered;
   let is_private = false;
   let maxage;
@@ -10719,7 +10733,7 @@ async function render_response({
     error2.stack = options.get_stack(error2);
   }
   if (ssr) {
-    branch.forEach(({ node, loaded, fetched, uses_credentials }) => {
+    branch.forEach(({ node, props: props2, loaded, fetched, uses_credentials }) => {
       if (node.css)
         node.css.forEach((url2) => stylesheets.add(url2));
       if (node.js)
@@ -10728,6 +10742,8 @@ async function render_response({
         Object.entries(node.styles).forEach(([k, v]) => styles.set(k, v));
       if (fetched && page_config.hydrate)
         serialized_data.push(...fetched);
+      if (props2)
+        shadow_props = props2;
       if (uses_credentials)
         is_private = true;
       maxage = loaded.maxage;
@@ -10865,6 +10881,9 @@ ${rendered.css.code}</style>`;
           attributes22 += ` data-body="${hash(body2)}"`;
         return `<script ${attributes22}>${json}<\/script>`;
       }).join("\n	");
+      if (shadow_props) {
+        body += `<script type="application/json" data-type="svelte-props">${escape_json_in_html(s2(shadow_props))}<\/script>`;
+      }
     }
     if (options.service_worker) {
       csp.add_script(init_service_worker);
@@ -11012,6 +11031,7 @@ async function load_node({
   $session,
   stuff,
   is_error,
+  is_leaf,
   status,
   error: error2
 }) {
@@ -11020,10 +11040,27 @@ async function load_node({
   const fetched = [];
   let set_cookie_headers = [];
   let loaded;
-  if (module2.load) {
+  const shadow = is_leaf ? await load_shadow_data(route, event, !!state.prerender) : {};
+  if (shadow.fallthrough)
+    return;
+  if (shadow.cookies) {
+    set_cookie_headers.push(...shadow.cookies);
+  }
+  if (shadow.error) {
+    loaded = {
+      status: shadow.status,
+      error: shadow.error
+    };
+  } else if (shadow.redirect) {
+    loaded = {
+      status: shadow.status,
+      redirect: shadow.redirect
+    };
+  } else if (module2.load) {
     const load_input = {
       url: state.prerender ? create_prerendering_url_proxy(url) : url,
       params,
+      props: shadow.body || {},
       get session() {
         uses_credentials = true;
         return $session;
@@ -11123,7 +11160,7 @@ async function load_node({
                 fetched.push({
                   url: requested,
                   body: opts.body,
-                  json: `{"status":${response2.status},"statusText":${s2(response2.statusText)},"headers":${s2(headers)},"body":"${escape_json_string_in_html(body)}"}`
+                  json: `{"status":${response2.status},"statusText":${s2(response2.statusText)},"headers":${s2(headers)},"body":"${escape_json_value_in_html(body)}"}`
                 });
               }
               if (dependency) {
@@ -11170,20 +11207,122 @@ async function load_node({
     if (!loaded) {
       throw new Error(`load function must return a value${options.dev ? ` (${node.entry})` : ""}`);
     }
+  } else if (shadow.body) {
+    loaded = {
+      props: shadow.body
+    };
   } else {
     loaded = {};
   }
   if (loaded.fallthrough && !is_error) {
     return;
   }
+  if (shadow.body && state.prerender) {
+    const pathname = `${event.url.pathname}/__data.json`;
+    const dependency = {
+      response: new Response(void 0),
+      body: JSON.stringify(shadow.body)
+    };
+    state.prerender.dependencies.set(pathname, dependency);
+  }
   return {
     node,
+    props: shadow.body,
     loaded: normalize(loaded),
     stuff: loaded.stuff || stuff,
     fetched,
     set_cookie_headers,
     uses_credentials
   };
+}
+async function load_shadow_data(route, event, prerender) {
+  if (!route.shadow)
+    return {};
+  try {
+    const mod = await route.shadow();
+    if (prerender && (mod.post || mod.put || mod.del || mod.patch)) {
+      throw new Error("Cannot prerender pages that have shadow endpoints with mutative methods");
+    }
+    const method = event.request.method.toLowerCase().replace("delete", "del");
+    const handler = mod[method];
+    if (!handler) {
+      return {
+        status: 405,
+        error: new Error(`${method} method not allowed`)
+      };
+    }
+    const data2 = {
+      status: 200,
+      cookies: [],
+      body: {}
+    };
+    if (method !== "get") {
+      const result = await handler(event);
+      if (result.fallthrough)
+        return result;
+      const { status, headers, body } = validate_shadow_output(result);
+      add_cookies(data2.cookies, headers);
+      if (status >= 300 && status < 400) {
+        return {
+          status,
+          redirect: headers instanceof Headers ? headers.get("location") : headers.location
+        };
+      }
+      data2.status = status;
+      data2.body = body;
+    }
+    if (mod.get) {
+      const result = await mod.get.call(null, event);
+      if (result.fallthrough)
+        return result;
+      const { status, headers, body } = validate_shadow_output(result);
+      add_cookies(data2.cookies, headers);
+      if (status >= 400) {
+        return {
+          status,
+          error: new Error("Failed to load data")
+        };
+      }
+      if (status >= 300) {
+        return {
+          status,
+          redirect: headers instanceof Headers ? headers.get("location") : headers.location
+        };
+      }
+      data2.body = __spreadValues(__spreadValues({}, body), data2.body);
+    }
+    return data2;
+  } catch (e2) {
+    return {
+      status: 500,
+      error: coalesce_to_error(e2)
+    };
+  }
+}
+function add_cookies(target, headers) {
+  const cookies = headers["set-cookie"];
+  if (cookies) {
+    if (Array.isArray(cookies)) {
+      target.push(...cookies);
+    } else {
+      target.push(cookies);
+    }
+  }
+}
+function validate_shadow_output(result) {
+  const { status = 200, body = {} } = result;
+  let headers = result.headers || {};
+  if (headers instanceof Headers) {
+    if (headers.has("set-cookie")) {
+      throw new Error("Shadow endpoint request handler cannot use Headers interface with Set-Cookie headers");
+    }
+  } else {
+    headers = lowercase_keys(headers);
+  }
+  if (!is_pojo(body)) {
+    throw new Error("Body returned from shadow endpoint request handler must be a plain object");
+  }
+  return { status, headers, body };
 }
 async function respond_with_error({ event, options, state, $session, status, error: error2, ssr }) {
   try {
@@ -11200,7 +11339,8 @@ async function respond_with_error({ event, options, state, $session, status, err
       node: default_layout,
       $session,
       stuff: {},
-      is_error: false
+      is_error: false,
+      is_leaf: false
     });
     const error_loaded = await load_node({
       event,
@@ -11213,6 +11353,7 @@ async function respond_with_error({ event, options, state, $session, status, err
       $session,
       stuff: layout_loaded ? layout_loaded.stuff : {},
       is_error: true,
+      is_leaf: false,
       status,
       error: error2
     });
@@ -11293,7 +11434,8 @@ async function respond$1(opts) {
               url: event.url,
               node,
               stuff,
-              is_error: false
+              is_error: false,
+              is_leaf: i2 === nodes.length - 1
             }));
             if (!loaded)
               return;
@@ -11333,6 +11475,7 @@ async function respond$1(opts) {
                     node: error_node,
                     stuff: node_loaded.stuff,
                     is_error: true,
+                    is_leaf: false,
                     status,
                     error: error2
                   }));
@@ -11401,13 +11544,21 @@ function with_cookies(response, set_cookie_headers) {
   }
   return response;
 }
-async function render_page(event, route, match, options, state, ssr) {
+async function render_page(event, route, options, state, ssr) {
   if (state.initiator === route) {
     return new Response(`Not found: ${event.url.pathname}`, {
       status: 404
     });
   }
-  const params = route.params ? decode_params(route.params(match)) : {};
+  if (route.shadow) {
+    const type = negotiate(event.request.headers.get("accept") || "text/html", [
+      "text/html",
+      "application/json"
+    ]);
+    if (type === "application/json") {
+      return render_endpoint(event, await route.shadow());
+    }
+  }
   const $session = await options.hooks.getSession(event);
   const response = await respond$1({
     event,
@@ -11415,7 +11566,7 @@ async function render_page(event, route, match, options, state, ssr) {
     state,
     $session,
     route,
-    params,
+    params: event.params,
     ssr
   });
   if (response) {
@@ -11427,6 +11578,39 @@ async function render_page(event, route, match, options, state, ssr) {
     });
   }
 }
+function negotiate(accept, types2) {
+  const parts = accept.split(",").map((str, i2) => {
+    const match = /([^/]+)\/([^;]+)(?:;q=([0-9.]+))?/.exec(str);
+    if (match) {
+      const [, type, subtype, q = "1"] = match;
+      return { type, subtype, q: +q, i: i2 };
+    }
+    throw new Error(`Invalid Accept header: ${accept}`);
+  }).sort((a, b) => {
+    if (a.q !== b.q) {
+      return b.q - a.q;
+    }
+    if (a.subtype === "*" !== (b.subtype === "*")) {
+      return a.subtype === "*" ? 1 : -1;
+    }
+    if (a.type === "*" !== (b.type === "*")) {
+      return a.type === "*" ? 1 : -1;
+    }
+    return a.i - b.i;
+  });
+  let accepted;
+  let min_priority = Infinity;
+  for (const mimetype of types2) {
+    const [type, subtype] = mimetype.split("/");
+    const priority = parts.findIndex((part) => (part.type === type || part.type === "*") && (part.subtype === subtype || part.subtype === "*"));
+    if (priority !== -1 && priority < min_priority) {
+      accepted = mimetype;
+      min_priority = priority;
+    }
+  }
+  return accepted;
+}
+var DATA_SUFFIX = "/__data.json";
 async function respond(request, options, state = {}) {
   var _a4;
   const url = new URL(request.url);
@@ -11522,11 +11706,31 @@ async function respond(request, options, state = {}) {
           }
           decoded = decoded.slice(options.paths.base.length) || "/";
         }
+        const is_data_request = decoded.endsWith(DATA_SUFFIX);
+        if (is_data_request)
+          decoded = decoded.slice(0, -DATA_SUFFIX.length) || "/";
         for (const route of options.manifest._.routes) {
           const match = route.pattern.exec(decoded);
           if (!match)
             continue;
-          const response2 = route.type === "endpoint" ? await render_endpoint(event2, route, match) : await render_page(event2, route, match, options, state, ssr);
+          event2.params = route.params ? decode_params(route.params(match)) : {};
+          let response2;
+          if (is_data_request && route.type === "page" && route.shadow) {
+            response2 = await render_endpoint(event2, await route.shadow());
+            if (response2 && response2.status >= 300 && response2.status < 400 && request.headers.get("x-sveltekit-noredirect") === "true") {
+              const location = response2.headers.get("location");
+              if (location) {
+                response2 = new Response(void 0, {
+                  status: 204,
+                  headers: {
+                    "x-sveltekit-location": location
+                  }
+                });
+              }
+            }
+          } else {
+            response2 = route.type === "endpoint" ? await render_endpoint(event2, await route.load()) : await render_page(event2, route, options, state, ssr);
+          }
           if (response2) {
             if (response2.status === 200 && response2.headers.has("etag")) {
               let if_none_match_value = request.headers.get("if-none-match");
@@ -11665,10 +11869,10 @@ var App = class {
 // .svelte-kit/vercel-tmp/manifest.js
 var manifest = {
   appDir: "_app",
-  assets: new Set([".nojekyll", "favicon.png", "smui-dark.css", "smui.css"]),
+  assets: /* @__PURE__ */ new Set([".nojekyll", "favicon.png", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".png": "image/png", ".css": "text/css" },
-    entry: { "file": "start-baa0637f.js", "js": ["start-baa0637f.js", "chunks/vendor-920afe4a.js"], "css": [] },
+    entry: { "file": "start-7063b67e.js", "js": ["start-7063b67e.js", "chunks/vendor-1bdd7840.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
@@ -11681,6 +11885,7 @@ var manifest = {
         pattern: /^\/$/,
         params: null,
         path: "/",
+        shadow: null,
         a: [0, 2],
         b: [1]
       },
@@ -11689,6 +11894,7 @@ var manifest = {
         pattern: /^\/HowTo\/?$/,
         params: null,
         path: "/HowTo",
+        shadow: null,
         a: [0, 3],
         b: [1]
       }
@@ -11708,6 +11914,7 @@ var entry_default = async (req, res) => {
   }
   setResponse(res, await app.render(request));
 };
+module.exports = __toCommonJS(entry_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {});
 /*! *****************************************************************************
