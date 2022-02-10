@@ -13,7 +13,6 @@
 
     let howTos = [customerFeedbackHowToData, turnOnLightsHowToData];
     let title = "How-To";
-    let appVersion = "1.2";
 
     let menu: MenuComponentDev;
 
@@ -64,7 +63,7 @@
                 </List>
               </Menu>
           
-            <Title>{title} <span style="font-size:80%">v{appVersion}</span>: {howTos[currentHowToIdx].title}</Title>
+            <Title>{title} <span style="font-size:80%">v{process.env.npm_package_version}</span>: {howTos[currentHowToIdx].title}</Title>
           </Section>
           <Section align="end" toolbar>
             <IconButton class="material-icons" aria-label="Download"
