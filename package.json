@@ -1,11 +1,11 @@
 {
   "name": "how-to",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "package": "svelte-kit package",
-    "preview": "svelte-kit preview",
+    "dev": "npm run version && svelte-kit dev",
+    "build": "npm run version && svelte-kit build",
+    "package": "npm run version && svelte-kit package",
+    "preview": "npm run version && svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
@@ -13,7 +13,8 @@
     "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
     "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
-    "deploy": "node ./gh-pages.js"
+    "deploy": "node ./gh-pages.js",
+    "version": "npx genversion --es6 src/lib/version.js"
   },
   "devDependencies": {
     "@material/typography": "^13.0.0",
@@ -39,6 +40,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
+    "genversion": "^3.0.2",
     "gh-pages": "^3.2.3",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",

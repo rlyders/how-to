@@ -10,6 +10,7 @@
     import turnOnLightsHowToData from '$lib/data/how-tos/turn-on-lights.yaml';
     import HowTo from './HowTo.svelte';
     import { fade, fly } from 'svelte/transition';
+    import { version } from '$lib/version';
 
     let howTos = [customerFeedbackHowToData, turnOnLightsHowToData];
     let title = "How-To";
@@ -63,7 +64,7 @@
                 </List>
               </Menu>
           
-            <Title>{title} <span style="font-size:80%">v{process.env.npm_package_version}</span>: {howTos[currentHowToIdx].title}</Title>
+            <Title>{title} <span style="font-size:80%">v{version}</span>: {howTos[currentHowToIdx].title}</Title>
           </Section>
           <Section align="end" toolbar>
             <IconButton class="material-icons" aria-label="Download"
